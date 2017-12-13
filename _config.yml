@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Panda的blog #博客名
+title: 四月的blog #博客名
 subtitle: 码农，程序猿         #副标题
 description:  温柔只给意中人      #用于搜索，没有直观表现
-author: 四月       #作者
+author: April       #作者
 language: zh-Hans    #语言
 timezone:          #时区，此处不填写，hexo会以你目前电脑的时区为默认值
 
