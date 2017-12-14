@@ -68,10 +68,12 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java基础,java面向对象,java类执行过程," />
 
 
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="四月的blog" type="application/atom+xml" />
@@ -81,16 +83,18 @@
 
 
 
-<meta name="description" content="温柔只给意中人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="四月的blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="没有继承关系情况的执行顺序有如下几个成员 ：静态代码块非静态代码块无参构造器有参构造器main方法（主程序）静态方法普通成员方法  按照JVM的内存模型的理想情况的执行顺序：Class字节码被类加载器装载到JVM中，首先Class相关描述信息会放在方法区，然后在堆区创建一个这个类的java.lang.Class对象，用来封装类在方法区类的对象。静态的东西都放在方法区，首次加载Class会初始化静">
+<meta name="keywords" content="java基础,java面向对象,java类执行过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类的执行顺序">
+<meta property="og:url" content="http://yoursite.com/2017/12/14/类的执行顺序/index.html">
 <meta property="og:site_name" content="四月的blog">
-<meta property="og:description" content="温柔只给意中人">
+<meta property="og:description" content="没有继承关系情况的执行顺序有如下几个成员 ：静态代码块非静态代码块无参构造器有参构造器main方法（主程序）静态方法普通成员方法  按照JVM的内存模型的理想情况的执行顺序：Class字节码被类加载器装载到JVM中，首先Class相关描述信息会放在方法区，然后在堆区创建一个这个类的java.lang.Class对象，用来封装类在方法区类的对象。静态的东西都放在方法区，首次加载Class会初始化静">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-14T14:37:57.255Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="四月的blog">
-<meta name="twitter:description" content="温柔只给意中人">
+<meta name="twitter:title" content="类的执行顺序">
+<meta name="twitter:description" content="没有继承关系情况的执行顺序有如下几个成员 ：静态代码块非静态代码块无参构造器有参构造器main方法（主程序）静态方法普通成员方法  按照JVM的内存模型的理想情况的执行顺序：Class字节码被类加载器装载到JVM中，首先Class相关描述信息会放在方法区，然后在堆区创建一个这个类的java.lang.Class对象，用来封装类在方法区类的对象。静态的东西都放在方法区，首次加载Class会初始化静">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/14/类的执行顺序/"/>
 
 
 
 
 
-  <title>四月的blog</title>
+  <title>类的执行顺序 | 四月的blog</title>
   
 
 
@@ -145,8 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,9 +222,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -251,9 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/14/类的执行顺序/" itemprop="url">类的执行顺序</a></h1>
+          <h1 class="post-title" itemprop="name headline">类的执行顺序</h1>
         
 
         <div class="post-meta">
@@ -325,9 +326,7 @@
       
 
       
-        
-          
-            <ul>
+        <ul>
 <li><p>没有继承关系情况的执行顺序<br>有如下几个成员 ：<br><em>静态代码块</em><br><em>非静态代码块</em><br><em>无参构造器</em><br><em>有参构造器</em><br><em>main方法（主程序）</em><br><em>静态方法</em><br><em>普通成员方法</em></p>
 </li>
 <li><p>按照JVM的内存模型的理想情况的执行顺序：<br>Class字节码被类加载器装载到JVM中，首先Class相关描述信息会放在方法区，然后在堆区创建一个这个类的java.lang.Class对象，用来封装类在方法区类的对象。静态的东西都放在方法区，首次加载Class会初始化静态代码块，静态变量，静态方法，注意，只有首次加载会。然后当我们调用new方法时，实例化该Class的对象，将该对象的指针地址放在栈区，指向堆中的实例。执行无参构造方法，有参构造方法。最后我们调用对象的实例方法，执行普通成员方法。<br>##我们new一个对象并调用他的方法，顺序是怎样的呢？</p>
@@ -372,8 +371,6 @@
 <li>有继承关系是，类的初始化顺序是：先父静后子静后父构造后子构造后子普通实例方法</li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -388,14 +385,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/java基础/" rel="tag"># java基础</a>
+          
+            <a href="/tags/java面向对象/" rel="tag"># java面向对象</a>
+          
+            <a href="/tags/java类执行过程/" rel="tag"># java类执行过程</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -405,10 +412,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -416,6 +424,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -639,6 +651,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
