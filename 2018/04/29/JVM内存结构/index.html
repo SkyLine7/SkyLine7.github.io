@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java基础,JVM 基础,javase," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JVM初步认识">
+<meta name="keywords" content="java基础,JVM 基础,javase">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM内存结构">
+<meta property="og:url" content="http://yoursite.com/2018/04/29/JVM内存结构/index.html">
+<meta property="og:site_name" content="panda的blog">
+<meta property="og:description" content="JVM初步认识">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5776935-d5a5e5e45a1e9206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/676">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5776935-cee5e89377f13478.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5776935-58fd5380e800dcd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/454">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5776935-be720c6e98162c38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/557">
+<meta property="og:updated_time" content="2018-04-29T07:57:07.375Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM内存结构">
+<meta name="twitter:description" content="JVM初步认识">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/5776935-d5a5e5e45a1e9206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/676">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/29/JVM内存结构/"/>
+
+
+
+
+
+  <title>JVM内存结构 | panda的blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">panda的blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">程序猿</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/JVM内存结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="panda的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM内存结构</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T15:50:02+08:00">
+                2018-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  JVM初步认识
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="nbsp-nbsp-nbsp-JVM内存结构"><a href="#nbsp-nbsp-nbsp-JVM内存结构" class="headerlink" title="&nbsp;&nbsp;&nbsp;JVM内存结构"></a>&nbsp;&nbsp;&nbsp;JVM内存结构</h1><h3 id="正式开始之前，有必要先复习一下几个java比较基础的题。"><a href="#正式开始之前，有必要先复习一下几个java比较基础的题。" class="headerlink" title="正式开始之前，有必要先复习一下几个java比较基础的题。"></a>正式开始之前，有必要先复习一下几个java比较基础的题。</h3><ol>
+<li><p><strong>关于byte类型取值范围（-128 到127）的推导</strong><br>按照网上和教科书上的大部分解释是这样:<br>最大的正数原码是：0111 1111 正数的原码补码相同，补码也是：0111 1111 这个无疑问，转为10进制是127。但是负数怎么表示呢，按原反补码来说，就是1111 1111，1000 0000，1000 0010，转为10进制就是2， 怎么会是-128呢? ，如果要表示128，那就是1000 0000 但是按照书上的说法，首位是符号位，后面干脆来了一个+0和-0的概念，这怎么解释？难道-128首位既是符号位又是数值位？<br>后面我是这么理解的：<em>1byte=8bit，一个byte8位，也就是能表示2的8次方，256个数，然后正数0到127一共128个，负数就是-128到-1 共128个，那么他的范围就是-128 到127。</em></p>
+</li>
+<li><p><strong>关于char类型和ASCII码</strong><br>这个也是坑了我好久，一段时间我都是很迷糊的。A:65,a:97.直接上图<br><img src="https://upload-images.jianshu.io/upload_images/5776935-d5a5e5e45a1e9206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/676" alt="char类型易错点" title="查看大图"></p>
+</li>
+</ol>
+<hr>
+<ol>
+<li>JVM内存结构初识：以<strong>HotSpot</strong>为例（正文来了）</li>
+</ol>
+<p>之前我一度分不清<strong>JVM内存模型(Java Virtual Machine)和Java内存模型(Java Memory Model)</strong> 甚至怀疑这两个东西是不是同一个东西。实际上JVM和JMM还是有许多不同之处的。</p>
+<ul>
+<li>下面2张图可以看到比较清晰的JVM的内存结构<br><img src="https://upload-images.jianshu.io/upload_images/5776935-cee5e89377f13478.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="JVM内存结构" title="查看大图"></li>
+</ul>
+<p>注：下图是<em>JDK7</em>版本，JDK8有少许变化<br><img src="https://upload-images.jianshu.io/upload_images/5776935-58fd5380e800dcd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/454" alt="JVM内存结构" title="查看大图"></p>
+<p>可以看出：<em>JVM内存结构大致由4个部分构成</em></p>
+<ol>
+<li><p><strong>Classloader（类加载器）子系统</strong><br>根据给定的全限定名类名(如java.lang.Object)来装载class文件的内容到Runtimedataarea中的methodarea(方法区域)。我们可以extends java.lang.ClassLoader类来写自己的Classloader。</p>
+</li>
+<li><p><strong>Executionengine（执行引擎）子系统</strong><br>执行JVM下达的Class中的指令。任何JVM specification（规范）实现(JDK)的核心都是Executionengine。</p>
+</li>
+<li><p><strong>Nativeinterface（本地接口）组件</strong><br>Java Native Interface，与操作系统交互，是其它编程语言交互的接口（例如动态调用dll库）。当调用native方法的时候，就进入不再受虚拟机限制。</p>
+</li>
+<li><p><strong>RuntimeDataArea（运行时数据区）组件</strong><br>我们俗称的JVM的内存区域（通常意义上的JVM的内存区域）</p>
+</li>
+</ol>
+<h3 id="nbsp-nbsp-其中JVM的运行时数据区大概有几个主要部分"><a href="#nbsp-nbsp-其中JVM的运行时数据区大概有几个主要部分" class="headerlink" title="&nbsp;&nbsp;其中JVM的运行时数据区大概有几个主要部分"></a>&nbsp;&nbsp;其中JVM的<strong>运行时数据区</strong>大概有几个主要部分</h3><ul>
+<li><p><strong>程序计数器（Program Count Register）</strong><br>也叫<strong>PC寄存器</strong>，简单理解就是JVM解释执行Class时用来执行下一行的,可以通过改变计数器的值改变当前执行的行数。计数器是线程私有的，每个线程都有独立的计数器，互不影响。如果线程正在执行的是Java方法，那么该计数器记录的是正在执行Class字节码指令的地址（可以理解为行号），如果线程执行的是Native(本地)方法，该计数器的值为空。</p>
+</li>
+<li><p><strong>Java栈（Java Virtual Machines Stacks）</strong><br>描述java方法执行的内存模型。内存很小，和计数器一样是线程私有的，用于存储局部变量表，操作数栈等等。<strong>具体有 基本数据类型（byte,short,int,long,float,double,char,boolean）数据以及引用（reference）类型的内存地址指针或句柄</strong>。每个方法被执行的时候都会创建一个”栈帧”用于存储局部变量表(包括参数)、操作栈、方法出口等信息，对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。可以通过参数：-Xss调节栈的内存大小。 如果栈内存过小，会抛出StackOverflowError异常。</p>
+</li>
+<li><p><strong>本地方法栈（Native Method Stacks）</strong><br>和JVM栈类似，只不过是为Native方法服务。例如与当前的操作系统交互，调用其他语言接口。</p>
+</li>
+<li><p><strong>Java堆（Java Heap）</strong><br>Java堆是JVM内存模型中最大的一个部分，它是一个被所有线程共享的一块区域，在虚拟机启动时创建。<strong>存放对象实例以及数组，几乎所有的对象实例在这里分配内存。</strong>Java堆是GC管理的区域，有时候又叫”GC堆”。由于现在GC收集器都采用分代算法，所以Java堆还可以细分为<strong>：新生代和老年代</strong>。Java堆的大小可以通过-Xms(最小值)和-Xmx(最大值)参数设置，-Xms为JVM启动时申请的最小内存，默认为操作系统物理内存的1/64，-Xmx为JVM可申请的最大内存，默认为物理内存的1/4，默认当空余堆内存小于40%时，JVM会增大Java Heap直到-Xmx指定值的最大限制，可通过-xx:MinHeapFreeRation=值，来指定这个比例的大小；当空余堆内存大于70%时，JVM会减小heap直到-Xms指定值的最小限制，可通过-xx:MaxHeapFreeRation=值，来指定这个比例的大小。</p>
+</li>
+<li><p><strong>方法区（Method Area）</strong><br>也称为”永久代”、”非堆”。它用于存储虚拟机加载的所有的①类（class），②静态变量（static变量），③静态方法，④常量和⑤成员方法。也是各个线程共享的内存区域。默认最小值为16MB，最大值为64MB，可以通过<strong>-xx:PermSize和-xx:MaxPermSize参数调节方法区的大小</strong>，当方法区内存过小时，将抛出：OutOfMemoryError 异常。注：<em>在JDK7中，String等常量信息不再置于方法区，已经移到了Java堆中。</em></p>
+</li>
+<li><p><strong>运行时常量池（Runtime Constant Pool）</strong><br><strong>是方法区中的一部分，该区域除了存放类和接口的常量，它还存放成员变量和成员方法的所有引用。</strong>当一个成员变量或者成员方法被引用的时候，JVM就通过运行常量池中的这些引用来查找成员变量和成员方法在内存中的的实际地址。当常量池无法申请到内存导致内存过小时，将抛出：OutOfMemoryError 异常。</p>
+</li>
+</ul>
+<p><br></p>
+<ol>
+<li>JVM栈，堆，方法区交互简图<br><img src="https://upload-images.jianshu.io/upload_images/5776935-be720c6e98162c38.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/557" alt="JVM栈，堆，方法区交互" title="查看大图"></li>
+</ol>
+<p><br></p>
+<h3 id="简单来说就是：-JVM运行时会把类的信息加载到方法区，main方法本身也放入方法区，对象的引用变量放到栈里，new出来的对象放在堆区。"><a href="#简单来说就是：-JVM运行时会把类的信息加载到方法区，main方法本身也放入方法区，对象的引用变量放到栈里，new出来的对象放在堆区。" class="headerlink" title="简单来说就是： JVM运行时会把类的信息加载到方法区，main方法本身也放入方法区，对象的引用变量放到栈里，new出来的对象放在堆区。"></a>简单来说就是： <em>JVM运行时会把类的信息加载到方法区，main方法本身也放入方法区，对象的引用变量放到栈里，new出来的对象放在堆区。</em></h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java基础/" rel="tag"># java基础</a>
+          
+            <a href="/tags/JVM-基础/" rel="tag"># JVM 基础</a>
+          
+            <a href="/tags/javase/" rel="tag"># javase</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/29/浅谈web分页/" rel="next" title="浅谈web分页">
+                <i class="fa fa-chevron-left"></i> 浅谈web分页
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">April</p>
+              <p class="site-description motion-element" itemprop="description">温柔只给意中人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nbsp-nbsp-nbsp-JVM内存结构"><span class="nav-number">1.</span> <span class="nav-text"><a href="#nbsp-nbsp-nbsp-JVM&#x5185;&#x5B58;&#x7ED3;&#x6784;" class="headerlink" title="&#xA0;&#xA0;&#xA0;JVM&#x5185;&#x5B58;&#x7ED3;&#x6784;"></a>&#xA0;&#xA0;&#xA0;JVM&#x5185;&#x5B58;&#x7ED3;&#x6784;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正式开始之前，有必要先复习一下几个java比较基础的题。"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x6B63;&#x5F0F;&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#xFF0C;&#x6709;&#x5FC5;&#x8981;&#x5148;&#x590D;&#x4E60;&#x4E00;&#x4E0B;&#x51E0;&#x4E2A;java&#x6BD4;&#x8F83;&#x57FA;&#x7840;&#x7684;&#x9898;&#x3002;" class="headerlink" title="&#x6B63;&#x5F0F;&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#xFF0C;&#x6709;&#x5FC5;&#x8981;&#x5148;&#x590D;&#x4E60;&#x4E00;&#x4E0B;&#x51E0;&#x4E2A;java&#x6BD4;&#x8F83;&#x57FA;&#x7840;&#x7684;&#x9898;&#x3002;"></a>&#x6B63;&#x5F0F;&#x5F00;&#x59CB;&#x4E4B;&#x524D;&#xFF0C;&#x6709;&#x5FC5;&#x8981;&#x5148;&#x590D;&#x4E60;&#x4E00;&#x4E0B;&#x51E0;&#x4E2A;java&#x6BD4;&#x8F83;&#x57FA;&#x7840;&#x7684;&#x9898;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nbsp-nbsp-其中JVM的运行时数据区大概有几个主要部分"><span class="nav-number">1.0.2.</span> <span class="nav-text"><a href="#nbsp-nbsp-&#x5176;&#x4E2D;JVM&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x6570;&#x636E;&#x533A;&#x5927;&#x6982;&#x6709;&#x51E0;&#x4E2A;&#x4E3B;&#x8981;&#x90E8;&#x5206;" class="headerlink" title="&#xA0;&#xA0;&#x5176;&#x4E2D;JVM&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x6570;&#x636E;&#x533A;&#x5927;&#x6982;&#x6709;&#x51E0;&#x4E2A;&#x4E3B;&#x8981;&#x90E8;&#x5206;"></a>&#xA0;&#xA0;&#x5176;&#x4E2D;JVM&#x7684;<strong>&#x8FD0;&#x884C;&#x65F6;&#x6570;&#x636E;&#x533A;</strong>&#x5927;&#x6982;&#x6709;&#x51E0;&#x4E2A;&#x4E3B;&#x8981;&#x90E8;&#x5206;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单来说就是：-JVM运行时会把类的信息加载到方法区，main方法本身也放入方法区，对象的引用变量放到栈里，new出来的对象放在堆区。"><span class="nav-number">1.0.3.</span> <span class="nav-text"><a href="#&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#xFF1A;-JVM&#x8FD0;&#x884C;&#x65F6;&#x4F1A;&#x628A;&#x7C7B;&#x7684;&#x4FE1;&#x606F;&#x52A0;&#x8F7D;&#x5230;&#x65B9;&#x6CD5;&#x533A;&#xFF0C;main&#x65B9;&#x6CD5;&#x672C;&#x8EAB;&#x4E5F;&#x653E;&#x5165;&#x65B9;&#x6CD5;&#x533A;&#xFF0C;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x653E;&#x5230;&#x6808;&#x91CC;&#xFF0C;new&#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;&#x653E;&#x5728;&#x5806;&#x533A;&#x3002;" class="headerlink" title="&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#xFF1A; JVM&#x8FD0;&#x884C;&#x65F6;&#x4F1A;&#x628A;&#x7C7B;&#x7684;&#x4FE1;&#x606F;&#x52A0;&#x8F7D;&#x5230;&#x65B9;&#x6CD5;&#x533A;&#xFF0C;main&#x65B9;&#x6CD5;&#x672C;&#x8EAB;&#x4E5F;&#x653E;&#x5165;&#x65B9;&#x6CD5;&#x533A;&#xFF0C;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x653E;&#x5230;&#x6808;&#x91CC;&#xFF0C;new&#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;&#x653E;&#x5728;&#x5806;&#x533A;&#x3002;"></a>&#x7B80;&#x5355;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#xFF1A; <em>JVM&#x8FD0;&#x884C;&#x65F6;&#x4F1A;&#x628A;&#x7C7B;&#x7684;&#x4FE1;&#x606F;&#x52A0;&#x8F7D;&#x5230;&#x65B9;&#x6CD5;&#x533A;&#xFF0C;main&#x65B9;&#x6CD5;&#x672C;&#x8EAB;&#x4E5F;&#x653E;&#x5165;&#x65B9;&#x6CD5;&#x533A;&#xFF0C;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x653E;&#x5230;&#x6808;&#x91CC;&#xFF0C;new&#x51FA;&#x6765;&#x7684;&#x5BF9;&#x8C61;&#x653E;&#x5728;&#x5806;&#x533A;&#x3002;</em></span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">April</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
