@@ -68,10 +68,12 @@
 
 
 
-  <meta name="keywords" content="javaweb,javaweb分页," />
+  <meta name="keywords" content="T-SQL基础,数据库,SQL语句," />
 
 
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
@@ -81,18 +83,20 @@
 
 
 
-<meta name="description" content="web分页">
-<meta name="keywords" content="javaweb,javaweb分页">
+<meta name="description" content="一个简单的sql查询题目">
+<meta name="keywords" content="T-SQL基础,数据库,SQL语句">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈web分页">
-<meta property="og:url" content="http://yoursite.com/2018/04/29/浅谈web分页/index.html">
+<meta property="og:title" content="一个简单sql题的思考">
+<meta property="og:url" content="http://yoursite.com/2018/04/29/一个简单sql题的思考/index.html">
 <meta property="og:site_name" content="panda的blog">
-<meta property="og:description" content="web分页">
+<meta property="og:description" content="一个简单的sql查询题目">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-29T07:56:48.942Z">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/3/161eb0faa6836c71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2018-04-29T08:28:58.048Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈web分页">
-<meta name="twitter:description" content="web分页">
+<meta name="twitter:title" content="一个简单sql题的思考">
+<meta name="twitter:description" content="一个简单的sql查询题目">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/3/3/161eb0faa6836c71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 
 
 
@@ -122,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/29/浅谈web分页/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/29/一个简单sql题的思考/"/>
 
 
 
 
 
-  <title>浅谈web分页 | panda的blog</title>
+  <title>一个简单sql题的思考 | panda的blog</title>
   
 
 
@@ -255,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/浅谈web分页/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/一个简单sql题的思考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="April">
@@ -272,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">浅谈web分页</h1>
+          <h1 class="post-title" itemprop="name headline">一个简单sql题的思考</h1>
         
 
         <div class="post-meta">
@@ -284,7 +288,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T00:51:28+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T16:27:17+08:00">
                 2018-04-29
               </time>
             
@@ -307,8 +311,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javaweb/" itemprop="url" rel="index">
-                    <span itemprop="name">javaweb</span>
+                  <a href="/categories/SQL基础/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL基础</span>
                   </a>
                 </span>
 
@@ -331,7 +335,7 @@
 
           
               <div class="post-description">
-                  web分页
+                  一个简单的sql查询题目
               </div>
           
 
@@ -348,18 +352,27 @@
       
 
       
-        <h1 id="nbsp-nbsp-nbsp-浅谈web分页"><a href="#nbsp-nbsp-nbsp-浅谈web分页" class="headerlink" title="&nbsp;&nbsp;&nbsp;浅谈web分页"></a>&nbsp;&nbsp;&nbsp;浅谈web分页</h1><ul>
-<li><p>web端分页大致可以分为2种：<strong><em>前端分页和后端分页</em></strong>。但无论哪种，都需要:当前页码(page) 和 每页显示数量(size)2个参数。</p>
-</li>
-<li><h2 id="前端分页"><a href="#前端分页" class="headerlink" title="前端分页"></a>前端分页</h2><p>也就是Ajax局部刷新页面，一次性查询所有数据，后台不做处理。这样做的好处是后台省事，什么条件都不用加，查询到数据直接返回给前端就ok了。前端可用一个分页插件或者自己手写一个分页插件(日常造轮子？)，展示数据，完事。但是这种分页方式的缺点是显而易见的。首先，数据量一大，(例如几十万)<strong>数据库压力比较大，消耗资源多，网络传输慢，特别是用户网速不佳的情况下，很容易请求超时</strong>。再者，前端拿到数据，需要用插件进行二次分页，然后在进行数据渲染，数据量一大，<strong>容易导致长时间白屏的情况，用户体验很差</strong>。还有一个致命的缺点:<strong>前端分页的即时性没有保证</strong>。在用户第一次请求，后台做出响应拿到数据后，如果用户换页，这时没有请求后台，只是前端的数据翻页，如果在此之前数据有更新，前端分页是不能得到最新的数据的。不过前端分页也不是一无所用，可以结合后台分页一起用。例如，<em>新浪微博评论的前十条(第一页)是前端ajax分页，在a标签的加上src属性利于爬虫抓取。</em></p>
-</li>
-<li><h2 id="后端分页"><a href="#后端分页" class="headerlink" title="后端分页"></a>后端分页</h2><p>可以分为大致两种:<strong>服务器分页和数据库分页。</strong></p>
-</li>
-<li><h3 id="服务器分页"><a href="#服务器分页" class="headerlink" title="服务器分页"></a>服务器分页</h3><p>也叫<strong>逻辑分页</strong>。查询所有数据，返回结果集（ResultSet）,利用游标的滚动分页，使用list截取保存分页数据。每次请求根据page和size返回数据。可以看到这种方式是通过服务端逻辑处理进行分页。控制层可以ajax返回数据，也可以页面返回数据，2者差别不大。这种分页方法渐渐的被淘汰了。每次读取游标的值，数据量一大，服务端逻辑处理就很复杂。保存在内存中的数据也就越多。给服务器带来很大的压力。再者，此类方式同样也存在数据即时性的问题。 </p>
-</li>
-<li><h3 id="数据库分页"><a href="#数据库分页" class="headerlink" title="数据库分页"></a>数据库分页</h3><p>也叫<strong>物理分页</strong>。这是最常用也是最主流的分页方式。通过分页语句，在数据库中拼装分页数据，根据page和size查询数据，返回其他分页信息(当前页currpage，总页数totalpages，是否首页，末页等等)给服务器。不同的数据库的分页语句各有差异。<strong>mysql为limit(m,n)（也有其他分页语句）。oracle需要嵌套子查询使用伪列rownum,rowid实现。而sqlserver需要使用top关键字。</strong>早期查询到的其他分页信息我们需要自己创建一个javabean对象保存，但是随着各大orm框架的兴起，它们把这些常用的分页信息封装好了。比较典型的有：Mybatis的 <a href="https://blog.csdn.net/szwangdf/article/details/27859847/" target="_blank" rel="noopener">Mybatis-Paginator</a>，<a href="https://www.cnblogs.com/ljdblog/p/6725094.html" target="_blank" rel="noopener">Mybatis-PageHelper</a> SpringDataJPA的<a href="https://blog.csdn.net/u011848397/article/details/52151673" target="_blank" rel="noopener">PagingAndSortingRepository</a>接口和<a href="https://blog.csdn.net/u011781521/article/details/74539330" target="_blank" rel="noopener">Page</a>接口。数据库分页的方式解决了数据即时性的问题，并且有较高的效率，对服务器和客户端压力都比较小，是当前web分页的最优选择。</p>
+        <h1 id="nbsp-nbsp-一个简单的sql题的思考"><a href="#nbsp-nbsp-一个简单的sql题的思考" class="headerlink" title="&nbsp;&nbsp;一个简单的sql题的思考"></a>&nbsp;&nbsp;一个简单的sql题的思考</h1><h4 id="题目长这样"><a href="#题目长这样" class="headerlink" title="题目长这样"></a><strong>题目长这样</strong></h4><p><img src="https://user-gold-cdn.xitu.io/2018/3/3/161eb0faa6836c71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="治好了多年的颈椎？" title="查看大图"></p>
+<h3 id="这么简单的题，于是1分钟不到我们有了解法1"><a href="#这么简单的题，于是1分钟不到我们有了解法1" class="headerlink" title="这么简单的题，于是1分钟不到我们有了解法1"></a>这么简单的题，于是1分钟不到我们有了<em>解法1</em></h3><ul>
+<li><strong>子查询 + not in</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct t.name from student t where t.name not in(select t.name from student t where t.score &lt;= 80)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p>这种写法比较容易想到，先查至少有一门课程小于80，然后not in ，就是查询所有课程都大于80。但是比较冗余，也没啥技术含量，关键这种如果数据量多效率也不好，于是我们有了<strong>解法2。</strong></p>
+<ul>
+<li><strong>子查询 + group by + having + not in</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select t.name from student t group by t.name having t.name not in(select t.name from student t where t.score &lt;= 80)</span><br></pre></td></tr></table></figure>
+<p>一眼望去貌似和上面那种差别不大，只是加了一个分组而已？ 但是我们发现，这种写法不需要加去重，因为已经分组了。总的来说，这种写法略优于解法1，但还是老毛病，子查询需要查询2次，效率不高，于是，我们有了<strong>解法3.</strong></p>
+<ul>
+<li><strong>group by + having + count</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select t.name from student t group by t.name having count(t.score) = sum(case when t.score &gt; 80 then 1 else 0 end)</span><br></pre></td></tr></table></figure>
+<p>咳咳，这种写法就比较炫技了，又是分组又是聚合函数的。但是也是一种思路。至于效率的话，和第二种半斤八两，只能说这个逼装的挺6。难道没有一种不需要子查询的么？ 让我们看看<strong>解法4</strong></p>
+<ul>
+<li><strong>group by + having + min</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select t.name from student t group by t.name having min(t.score) &gt; 80</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>高手过招，一招制敌。用这句话形容解法4再合适不过了，抓住了题目的关键点，合理的使用min()聚合函数。应该是这题的最优解。</p>
 
       
     </div>
@@ -377,9 +390,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/javaweb/" rel="tag"># javaweb</a>
+            <a href="/tags/T-SQL基础/" rel="tag"># T-SQL基础</a>
           
-            <a href="/tags/javaweb分页/" rel="tag"># javaweb分页</a>
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/SQL语句/" rel="tag"># SQL语句</a>
           
         </div>
       
@@ -392,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/14/类的执行顺序/" rel="next" title="类的执行顺序">
-                <i class="fa fa-chevron-left"></i> 类的执行顺序
+              <a href="/2018/04/29/JVM内存结构/" rel="next" title="JVM内存结构">
+                <i class="fa fa-chevron-left"></i> JVM内存结构
               </a>
             
           </div>
@@ -401,10 +416,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/29/JVM内存结构/" rel="prev" title="JVM内存结构">
-                JVM内存结构 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nbsp-nbsp-nbsp-浅谈web分页"><span class="nav-number">1.</span> <span class="nav-text"><a href="#nbsp-nbsp-nbsp-&#x6D45;&#x8C08;web&#x5206;&#x9875;" class="headerlink" title="&#xA0;&#xA0;&#xA0;&#x6D45;&#x8C08;web&#x5206;&#x9875;"></a>&#xA0;&#xA0;&#xA0;&#x6D45;&#x8C08;web&#x5206;&#x9875;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前端分页"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x524D;&#x7AEF;&#x5206;&#x9875;" class="headerlink" title="&#x524D;&#x7AEF;&#x5206;&#x9875;"></a>&#x524D;&#x7AEF;&#x5206;&#x9875;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后端分页"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x540E;&#x7AEF;&#x5206;&#x9875;" class="headerlink" title="&#x540E;&#x7AEF;&#x5206;&#x9875;"></a>&#x540E;&#x7AEF;&#x5206;&#x9875;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器分页"><span class="nav-number">1.2.1.</span> <span class="nav-text"><a href="#&#x670D;&#x52A1;&#x5668;&#x5206;&#x9875;" class="headerlink" title="&#x670D;&#x52A1;&#x5668;&#x5206;&#x9875;"></a>&#x670D;&#x52A1;&#x5668;&#x5206;&#x9875;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库分页"><span class="nav-number">1.2.2.</span> <span class="nav-text"><a href="#&#x6570;&#x636E;&#x5E93;&#x5206;&#x9875;" class="headerlink" title="&#x6570;&#x636E;&#x5E93;&#x5206;&#x9875;"></a>&#x6570;&#x636E;&#x5E93;&#x5206;&#x9875;</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nbsp-nbsp-一个简单的sql题的思考"><span class="nav-number">1.</span> <span class="nav-text"><a href="#nbsp-nbsp-&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;sql&#x9898;&#x7684;&#x601D;&#x8003;" class="headerlink" title="&#xA0;&#xA0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;sql&#x9898;&#x7684;&#x601D;&#x8003;"></a>&#xA0;&#xA0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;sql&#x9898;&#x7684;&#x601D;&#x8003;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目长这样"><span class="nav-number">1.0.0.1.</span> <span class="nav-text"><a href="#&#x9898;&#x76EE;&#x957F;&#x8FD9;&#x6837;" class="headerlink" title="&#x9898;&#x76EE;&#x957F;&#x8FD9;&#x6837;"></a><strong>&#x9898;&#x76EE;&#x957F;&#x8FD9;&#x6837;</strong></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这么简单的题，于是1分钟不到我们有了解法1"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x7684;&#x9898;&#xFF0C;&#x4E8E;&#x662F;1&#x5206;&#x949F;&#x4E0D;&#x5230;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x89E3;&#x6CD5;1" class="headerlink" title="&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x7684;&#x9898;&#xFF0C;&#x4E8E;&#x662F;1&#x5206;&#x949F;&#x4E0D;&#x5230;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x89E3;&#x6CD5;1"></a>&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x7684;&#x9898;&#xFF0C;&#x4E8E;&#x662F;1&#x5206;&#x949F;&#x4E0D;&#x5230;&#x6211;&#x4EEC;&#x6709;&#x4E86;<em>&#x89E3;&#x6CD5;1</em></span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
