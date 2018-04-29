@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringBoot,SpringData JPA,Web分页," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="web后端分页">
+<meta name="keywords" content="SpringBoot,SpringData JPA,Web分页">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用SpringData JPA 进行物理分页">
+<meta property="og:url" content="http://yoursite.com/2018/04/29/使用SpringData-JPA-进行物理分页/index.html">
+<meta property="og:site_name" content="panda的blog">
+<meta property="og:description" content="web后端分页">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="file:///D:/HexoImg/20180429201032.png">
+<meta property="og:image" content="file:///D:/HexoImg/20180429202744.png">
+<meta property="og:image" content="file:///D:/HexoImg/20180429203851.png">
+<meta property="og:image" content="file:///D:/HexoImg/20180429210144.png">
+<meta property="og:image" content="file:///D:/HexoImg/20180429211409.png">
+<meta property="og:updated_time" content="2018-04-29T14:27:36.315Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用SpringData JPA 进行物理分页">
+<meta name="twitter:description" content="web后端分页">
+<meta name="twitter:image" content="file:///D:/HexoImg/20180429201032.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/29/使用SpringData-JPA-进行物理分页/"/>
+
+
+
+
+
+  <title>使用SpringData JPA 进行物理分页 | panda的blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">panda的blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">程序猿</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/29/使用SpringData-JPA-进行物理分页/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="panda的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用SpringData JPA 进行物理分页</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T22:25:48+08:00">
+                2018-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  web后端分页
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用SpringData-JPA-实现物理分页"><a href="#使用SpringData-JPA-实现物理分页" class="headerlink" title="使用SpringData JPA  实现物理分页"></a>使用SpringData JPA  实现物理分页</h1><h3 id="环境：-Eclipse-Mars-2-JDK-1-8-Gradle-3-5-thymeleaf-3"><a href="#环境：-Eclipse-Mars-2-JDK-1-8-Gradle-3-5-thymeleaf-3" class="headerlink" title="环境： Eclipse Mars.2 + JDK 1.8 + Gradle 3.5 + thymeleaf 3"></a>环境： Eclipse Mars.2 + JDK 1.8 + Gradle 3.5 + thymeleaf 3</h3><ol>
+<li>首先我们前台html把分页菜单导航栏弄出来。用bootstrap的分页插件。<br><img src="file:///D:/HexoImg/20180429201032.png" alt="复制改一下" title="查看大图"></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-xs-4&quot;&gt;</span><br><span class="line">    &lt;nav aria-label=&quot;navigation&quot;&gt;</span><br><span class="line">    	&lt;ul class=&quot;pagination&quot;&gt;</span><br><span class="line">    		&lt;li&gt;</span><br><span class="line">    			&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;</span><br><span class="line">				&lt;a href=&quot;#&quot; title=&quot;上一页&quot;&gt;</span><br><span class="line">					&lt;i class=&quot;ace-icon fa fa-angle-double-left&quot;&gt;&lt;/i&gt;</span><br><span class="line">				&lt;/a&gt;</span><br><span class="line">			&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;									</span><br><span class="line">    			&lt;a href=&quot;#&quot; class=&quot;active&quot;&gt;1&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">    		&lt;li&gt;									</span><br><span class="line">    			&lt;a href=&quot;#&quot;&gt;2&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">    		&lt;li&gt;									</span><br><span class="line">    			&lt;a href=&quot;#&quot;&gt;3&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;</span><br><span class="line">				&lt;a herf=&quot;#&quot; title=&quot;下一页&quot;&gt;</span><br><span class="line">					&lt;i class=&quot;ace-icon fa fa-angle-double-right&quot;&gt;&lt;/i&gt;</span><br><span class="line">				&lt;/a&gt;</span><br><span class="line">			&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;</span><br><span class="line">				&lt;a href=&quot;#&quot;&gt;末页&lt;/a&gt;</span><br><span class="line">			&lt;/li&gt;</span><br><span class="line">		&lt;/ul&gt;</span><br><span class="line">	&lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>效果长这样：<br><img src="file:///D:/HexoImg/20180429202744.png" alt="分页导航菜单" title="效果图"></p>
+<ol>
+<li>这个时候来弄后台</li>
+</ol>
+<p>SpringData JPA 提供了几个接口来帮助我们实现分页</p>
+<ul>
+<li><strong>PagingAndSortingRepository</strong></li>
+</ul>
+<p>我们打开源码<br><img src="file:///D:/HexoImg/20180429203851.png" alt="分页接口1" title="分页排序仓库接口"></p>
+<ul>
+<li>它继承了CrudRepository接口，所以他有基本JPA的方法，例如，增,删,改，查方法。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   /**</span><br><span class="line"> * Returns all entities sorted by the given options.</span><br><span class="line"> * </span><br><span class="line"> * @param sort</span><br><span class="line"> * @return all entities sorted by the given options</span><br><span class="line"> */</span><br><span class="line">Iterable&lt;T&gt; findAll(Sort sort);</span><br></pre></td></tr></table></figure>
+<p>这个方法返回一个所有的按照排序规则的实体对象。</p>
+<p>我们点进去看Sort,发现这是一个排序类，提供了一些排序属性和规则，好吧，这不是我们想要的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   /**</span><br><span class="line"> * Creates a new &#123;@link Sort&#125; instance. Order defaults to &#123;@value Direction#ASC&#125;.</span><br><span class="line"> * </span><br><span class="line"> * @param properties must not be &#123;@literal null&#125; or contain &#123;@literal null&#125; or empty strings</span><br><span class="line"> */</span><br><span class="line">public Sort(String... properties) &#123;</span><br><span class="line">	this(DEFAULT_DIRECTION, properties);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的一些构造方法就是一个排序规则，例如升序还是倒叙，按哪一列排序。。。等等。</p>
+<p>so我们来看一下这个方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   /**</span><br><span class="line"> * Returns a &#123;@link Page&#125; of entities meeting the paging restriction provided in the &#123;@code Pageable&#125; object.</span><br><span class="line"> * </span><br><span class="line"> * @param pageable</span><br><span class="line"> * @return a page of entities</span><br><span class="line"> */</span><br><span class="line">Page&lt;T&gt; findAll(Pageable pageable);</span><br></pre></td></tr></table></figure>
+<p>返回一个Page对象，参数是一个Pageable,这看起来和分页有关了。我们先看Pageable.</p>
+<p>这个接口就是包含一些分页信息的抽象信息<br><img src="file:///D:/HexoImg/20180429210144.png" alt="Pageale" title="分页信息"></p>
+<p>比如返回第一页的信息，页偏移量，每页数量，当前页面，是否有前一页等等。当然我们如果真正要用的话只能用他的实现类PageRequest了。</p>
+<p>然后我们来看Page接口，这个接口可以说是真正的返回详细的分页信息的接口。它的类层次关系图如下：<br><img src="file:///D:/HexoImg/20180429211409.png" alt="Page" title="Page接口层次关系"></p>
+<p>这里我们看到它继承了Slice接口，而Slice接口给我们提供了相当多的分页方法：得到分页数据，得到总数据量，是否首页，是否末页，排序规则。。。。<br>而Page接口有一个很重要的方法：getTotalPages(),得到总页数。</p>
+<p>我们看到Page接口最近的一个实现类是PageImpl，那么我们待会就要用到它了。</p>
+<p>到这里我们大概了解了分页的2个重要接口，一个是Pageable,一个是Page.</p>
+<p>接下来我们就可以轻松的得到分页信息了。<br>先弄一个通用分页方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">   /**</span><br><span class="line"> * 获取集合(带分页)</span><br><span class="line"> * @author panda</span><br><span class="line"> */</span><br><span class="line">@SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">public Page&lt;T&gt; getResultListWithPaging(String sql, Class&lt;?&gt; clazz,int page,int size,String sortColumn)&#123;</span><br><span class="line">	List&lt;T&gt; list = null;</span><br><span class="line">	//查询记录条数</span><br><span class="line">    String countSql = &quot;select count(1) as cnt from (&quot; + sql.toString() + &quot;) temp &quot;;</span><br><span class="line">    //创建查询对象</span><br><span class="line">    Query countQuery = entityManager.createNativeQuery(countSql);</span><br><span class="line">    //获取总记录数</span><br><span class="line">    Object totalCount = countQuery.getSingleResult();</span><br><span class="line">    //分页查询</span><br><span class="line">    Query queryData = entityManager.createNativeQuery(sql.toString());</span><br><span class="line">    queryData.unwrap(SQLQuery.class).setResultTransformer(Transformers.aliasToBean(clazz)); </span><br><span class="line">    queryData.setFirstResult(page * size);//当前页总记录数</span><br><span class="line">    queryData.setMaxResults(size);//每页数量数</span><br><span class="line">	try &#123;			</span><br><span class="line">	    list = queryData.getResultList();</span><br><span class="line">   	&#125; catch(Exception e) &#123;</span><br><span class="line">   		logger.info(&quot;执行获取集合(带分页)出错--&#123;&#125;&quot;, e.getMessage());</span><br><span class="line">   	&#125; finally &#123;</span><br><span class="line">   		//关闭entityManager</span><br><span class="line">   		if(entityManager != null) &#123;</span><br><span class="line">   			entityManager.close();</span><br><span class="line">   		&#125;</span><br><span class="line">   	&#125;</span><br><span class="line">	//设置分页信息</span><br><span class="line"> 		Page&lt;T&gt; pageInfo = new PageImpl&lt;T&gt;(list, new PageRequest(page, size,Direction.ASC,sortColumn), Long.valueOf(totalCount.toString()));   </span><br><span class="line">    return pageInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>重点是设置分页信息那段。我们用Page对象创建一个PageImpl实例，这个构造方法需要的参数有：list:数据，还需要一个PageRequset的参数，当前页码page,每页显示数量size,排序规则ASC升序，排序列（当前也可以不要后面2个参数）。</p>
+<p>然后我们sql语句准备好，不需要带任何分页和排序的关键字。</p>
+<p>调用一下方法,给他存到Map中去<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Page&lt;EnterpriseUserInfoVo&gt; enterUserInfo = (Page&lt;EnterpriseUserInfoVo&gt;) daoUtil.getResultListWithPaging(sql, EnterpriseUserInfoVo.class,page,size,&quot;role_code&quot;);</span><br><span class="line"></span><br><span class="line">dataMap.put(&quot;userInfoList&quot;, enterUserInfo);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><h3 id="这里有一个关键性的步骤"><a href="#这里有一个关键性的步骤" class="headerlink" title="这里有一个关键性的步骤"></a><strong>这里有一个关键性的步骤</strong></h3>计算前端的展示页码：比如说，现在有20条数据，我按每页3条记录展示，然后规定展示页码长度为5，也就是说第一个展示页为1，2，3，4，5， 若当前页码为5，用户点击下一页，此时展示页应该展示6 。</li>
+</ul>
+<p>这里可以分为2种情况：<br>1.展示页长度小于最大的页码，比如展示页长度为5，我只有10条数据，每页展示3条，只有4页，那么展示页就应该只有1，2，3，4。<br>2.展示页长度大于最大页码（这种更符合显示，大量的数据才需要分页）<br>还是展示页长度为5，我有100条数据，每页展示3条，最大的页码为34，那么展示页就不固定，如果当前页为3，用户点击下一页，展示页应该就是4，5，6.以此类推。</p>
+<p>所以我们需要计算起始展示页的位置。(从0开始)</p>
+<p>开始的位置：<strong>(当前页码/每页显示数量)x每页显示数量;</strong></p>
+<p>这个很好理解，若当前页码小于每页显示数量，不用换展示页，否则说明已经超出了，然后再加一个展示页的长度。</p>
+<p>结束的位置：<strong>(当前页码/每页显示数量 + 1)x每页显示数量-1&lt;总页码-1?(当前页码/每页显示数量+1)x每页显示数量-1:总页码-1；</strong></p>
+<p>这个就需要分2种情况了，1&gt; 总页码小于展示页，那就取最大的页码；<br>2&gt;总页码大于展示页，那就取下一页，然后加一个展示页减 1（因为页码从0开始）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">      //计算展示的页码:都从0开始</span><br><span class="line">int pageStartIndex = (page/size)*size;</span><br><span class="line">int pageEndIndex = (page/size+1)*size-1&lt;enterUserInfo.getTotalPages()-1?(page/size+1)*size-1:enterUserInfo.getTotalPages()-1;</span><br></pre></td></tr></table></figure>
+<p>Controller层直接就省略了，弄一个方法，只要前台2个参数page和size就行，当然，size后台可以写死，比如我就想每页显示10条，那么前端直接传页码page过来就行了。 最后，我们把Map放到Model，返回页面给前端。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.addAllAttributes(dataMap);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>改造前台分页导航栏</strong></li>
+</ul>
+<p>我们用thymeleaf取值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-xs-4&quot;&gt;</span><br><span class="line">    &lt;nav aria-label=&quot;navigation&quot;&gt;</span><br><span class="line">    	&lt;ul class=&quot;pagination&quot; th:if=&quot;$&#123;not #lists.isEmpty(userInfoList.content)&#125;&quot;&gt;</span><br><span class="line">							</span><br><span class="line">    		&lt;li th:if=&quot;$&#123;userInfoList.first == false&#125;&quot;&gt;</span><br><span class="line">    			&lt;a th:href=&quot;@&#123;/web/system/userManageInfoView?page=0&#125;&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">								&lt;li th:if=&quot;$&#123;userInfoList.first == false&#125;&quot;&gt;</span><br><span class="line">									&lt;a title=&quot;上一页&quot; th:href=&quot;$&#123;&apos;/web/system/userManageInfoView?page=&apos;+(userInfoList.number-1)&#125;&quot;&gt;</span><br><span class="line">										&lt;i class=&quot;ace-icon fa fa-angle-double-left&quot;&gt;&lt;/i&gt;</span><br><span class="line">									&lt;/a&gt;</span><br><span class="line">								&lt;/li&gt;</span><br><span class="line">								&lt;li th:each=&quot;i:$&#123;#numbers.sequence(pageStartIndex,pageEndIndex)&#125;&quot; th:class=&quot;$&#123;userInfoList.number eq i&#125;?&apos;active&apos;:&apos;&apos;&quot;&gt;									</span><br><span class="line">									&lt;a th:href=&quot;$&#123;&apos;/web/system/userManageInfoView?page=&apos;+i&#125;&quot; th:text=&quot;$&#123;i+1&#125;&quot;&gt;&lt;/a&gt;</span><br><span class="line">								&lt;/li&gt;</span><br><span class="line">								&lt;li th:if=&quot;$&#123;userInfoList.last == false&#125;&quot;&gt;</span><br><span class="line">									&lt;a title=&quot;下一页&quot; th:href=&quot;$&#123;&apos;/web/system/userManageInfoView?page=&apos;+(userInfoList.number+1)&#125;&quot;&gt;</span><br><span class="line">										&lt;i class=&quot;ace-icon fa fa-angle-double-right&quot;&gt;&lt;/i&gt;</span><br><span class="line">									&lt;/a&gt;</span><br><span class="line">								&lt;/li&gt;</span><br><span class="line">								&lt;li id=&quot;lastPage&quot; th:if=&quot;$&#123;userInfoList.last == false&#125;&quot;&gt;</span><br><span class="line">									&lt;a th:href=&quot;$&#123;&apos;/web/system/userManageInfoView?page=&apos;+ (userInfoList.totalPages - 1)&#125;&quot;&gt;末页&lt;/a&gt;</span><br><span class="line">								&lt;/li&gt;</span><br><span class="line">							&lt;/ul&gt;</span><br><span class="line">						&lt;/nav&gt;</span><br><span class="line">					&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>首页和上一页，我们规定如果当前页就是第一页就不显示。<br>那么判断一下userInfoList.first == false ？ 展示：不展示</p>
+</li>
+<li><p>页码： 我们规定每次展示5个页码，不足5个就按不足的算。 那么需要循环 从pageStartIndex到pageEndIndex次。 </p>
+</li>
+<li><p>末页和下一页，我们规定如果当前页就是最后一页就不显示。<br>那么判断一下userInfoList.last == false ？ 展示：不展示</p>
+</li>
+</ul>
+<p>然后，把每个a标签的herf属性赋值就可以了。</p>
+<p>首页：page=0</p>
+<p>上一页： page = number - 1(当前页-1) </p>
+<p>当前页： page = number(当前页)，如果是当前页，我们给li元素添加active类，让他变成蓝色。</p>
+<p>下一页：page = number + 1(当前页+1) </p>
+<p>末页：page= totalPages - 1（总页数-1，记得页码从0开始，所以要-1）</p>
+<p>至此，整个Demo就完成了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          
+            <a href="/tags/SpringData-JPA/" rel="tag"># SpringData JPA</a>
+          
+            <a href="/tags/Web分页/" rel="tag"># Web分页</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/29/Linux基础1/" rel="next" title="Linux基础1">
+                <i class="fa fa-chevron-left"></i> Linux基础1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">April</p>
+              <p class="site-description motion-element" itemprop="description">温柔只给意中人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用SpringData-JPA-实现物理分页"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;SpringData-JPA-&#x5B9E;&#x73B0;&#x7269;&#x7406;&#x5206;&#x9875;" class="headerlink" title="&#x4F7F;&#x7528;SpringData JPA  &#x5B9E;&#x73B0;&#x7269;&#x7406;&#x5206;&#x9875;"></a>&#x4F7F;&#x7528;SpringData JPA  &#x5B9E;&#x73B0;&#x7269;&#x7406;&#x5206;&#x9875;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境：-Eclipse-Mars-2-JDK-1-8-Gradle-3-5-thymeleaf-3"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x73AF;&#x5883;&#xFF1A;-Eclipse-Mars-2-JDK-1-8-Gradle-3-5-thymeleaf-3" class="headerlink" title="&#x73AF;&#x5883;&#xFF1A; Eclipse Mars.2 + JDK 1.8 + Gradle 3.5 + thymeleaf 3"></a>&#x73AF;&#x5883;&#xFF1A; Eclipse Mars.2 + JDK 1.8 + Gradle 3.5 + thymeleaf 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这里有一个关键性的步骤"><span class="nav-number">1.0.2.</span> <span class="nav-text"><a href="#&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x6027;&#x7684;&#x6B65;&#x9AA4;" class="headerlink" title="&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x6027;&#x7684;&#x6B65;&#x9AA4;"></a><strong>&#x8FD9;&#x91CC;&#x6709;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x6027;&#x7684;&#x6B65;&#x9AA4;</strong></span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">April</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
