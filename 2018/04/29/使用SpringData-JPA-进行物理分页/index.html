@@ -92,11 +92,11 @@
 <meta property="og:description" content="web后端分页">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/20180429201032.png">
-<meta property="og:image" content="http://yoursite.com/2018/images/20180429202744.png">
-<meta property="og:image" content="file:///D:/HexoImg/20180429203851.png">
-<meta property="og:image" content="file:///D:/HexoImg/20180429210144.png">
-<meta property="og:image" content="file:///D:/HexoImg/20180429211409.png">
-<meta property="og:updated_time" content="2018-04-29T15:59:39.010Z">
+<meta property="og:image" content="http://yoursite.com/images/20180429202744.png">
+<meta property="og:image" content="http://yoursite.com/images/20180429203851.png">
+<meta property="og:image" content="http://yoursite.com/images/20180429210144.png">
+<meta property="og:image" content="http://yoursite.com/images/20180429211409.png">
+<meta property="og:updated_time" content="2018-04-29T16:04:42.787Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用SpringData JPA 进行物理分页">
 <meta name="twitter:description" content="web后端分页">
@@ -360,7 +360,7 @@
 <li>首先我们前台html把分页菜单导航栏弄出来。用bootstrap的分页插件。<br><img src="/images/20180429201032.png" alt="复制改一下" title="查看大图"></li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;col-xs-4&quot;&gt;</span><br><span class="line">    &lt;nav aria-label=&quot;navigation&quot;&gt;</span><br><span class="line">    	&lt;ul class=&quot;pagination&quot;&gt;</span><br><span class="line">    		&lt;li&gt;</span><br><span class="line">    			&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;</span><br><span class="line">				&lt;a href=&quot;#&quot; title=&quot;上一页&quot;&gt;</span><br><span class="line">					&lt;i class=&quot;ace-icon fa fa-angle-double-left&quot;&gt;&lt;/i&gt;</span><br><span class="line">				&lt;/a&gt;</span><br><span class="line">			&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;									</span><br><span class="line">    			&lt;a href=&quot;#&quot; class=&quot;active&quot;&gt;1&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">    		&lt;li&gt;									</span><br><span class="line">    			&lt;a href=&quot;#&quot;&gt;2&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">    		&lt;li&gt;									</span><br><span class="line">    			&lt;a href=&quot;#&quot;&gt;3&lt;/a&gt;</span><br><span class="line">    		&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;</span><br><span class="line">				&lt;a herf=&quot;#&quot; title=&quot;下一页&quot;&gt;</span><br><span class="line">					&lt;i class=&quot;ace-icon fa fa-angle-double-right&quot;&gt;&lt;/i&gt;</span><br><span class="line">				&lt;/a&gt;</span><br><span class="line">			&lt;/li&gt;</span><br><span class="line">			&lt;li&gt;</span><br><span class="line">				&lt;a href=&quot;#&quot;&gt;末页&lt;/a&gt;</span><br><span class="line">			&lt;/li&gt;</span><br><span class="line">		&lt;/ul&gt;</span><br><span class="line">	&lt;/nav&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<p>效果长这样：<br><img src="../../../images/20180429202744.png" alt="分页导航菜单" title="效果图"></p>
+<p>效果长这样：<br><img src="/images/20180429202744.png" alt="分页导航菜单" title="效果图"></p>
 <ol>
 <li>这个时候来弄后台</li>
 </ol>
@@ -368,7 +368,7 @@
 <ul>
 <li><strong>PagingAndSortingRepository</strong></li>
 </ul>
-<p>我们打开源码<br><img src="file:///D:/HexoImg/20180429203851.png" alt="分页接口1" title="分页排序仓库接口"></p>
+<p>我们打开源码<br><img src="/images/20180429203851.png" alt="分页接口1" title="分页排序仓库接口"></p>
 <ul>
 <li>它继承了CrudRepository接口，所以他有基本JPA的方法，例如，增,删,改，查方法。</li>
 </ul>
@@ -380,9 +380,9 @@
 <p>so我们来看一下这个方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   /**</span><br><span class="line"> * Returns a &#123;@link Page&#125; of entities meeting the paging restriction provided in the &#123;@code Pageable&#125; object.</span><br><span class="line"> * </span><br><span class="line"> * @param pageable</span><br><span class="line"> * @return a page of entities</span><br><span class="line"> */</span><br><span class="line">Page&lt;T&gt; findAll(Pageable pageable);</span><br></pre></td></tr></table></figure>
 <p>返回一个Page对象，参数是一个Pageable,这看起来和分页有关了。我们先看Pageable.</p>
-<p>这个接口就是包含一些分页信息的抽象信息<br><img src="file:///D:/HexoImg/20180429210144.png" alt="Pageale" title="分页信息"></p>
+<p>这个接口就是包含一些分页信息的抽象信息<br><img src="/images/20180429210144.png" alt="Pageale" title="分页信息"></p>
 <p>比如返回第一页的信息，页偏移量，每页数量，当前页面，是否有前一页等等。当然我们如果真正要用的话只能用他的实现类PageRequest了。</p>
-<p>然后我们来看Page接口，这个接口可以说是真正的返回详细的分页信息的接口。它的类层次关系图如下：<br><img src="file:///D:/HexoImg/20180429211409.png" alt="Page" title="Page接口层次关系"></p>
+<p>然后我们来看Page接口，这个接口可以说是真正的返回详细的分页信息的接口。它的类层次关系图如下：<br><img src="/images/20180429211409.png" alt="Page" title="Page接口层次关系"></p>
 <p>这里我们看到它继承了Slice接口，而Slice接口给我们提供了相当多的分页方法：得到分页数据，得到总数据量，是否首页，是否末页，排序规则。。。。<br>而Page接口有一个很重要的方法：getTotalPages(),得到总页数。</p>
 <p>我们看到Page接口最近的一个实现类是PageImpl，那么我们待会就要用到它了。</p>
 <p>到这里我们大概了解了分页的2个重要接口，一个是Pageable,一个是Page.</p>
