@@ -68,10 +68,12 @@
 
 
 
-  <meta name="keywords" content="T-SQL基础,数据库,SQL语句," />
+  <meta name="keywords" content="Java 工具,Java IDE,Java IDEA," />
 
 
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
@@ -81,20 +83,18 @@
 
 
 
-<meta name="description" content="一个简单的sql查询题目">
-<meta name="keywords" content="T-SQL基础,数据库,SQL语句">
+<meta name="description" content="IDEA">
+<meta name="keywords" content="Java 工具,Java IDE,Java IDEA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个简单sql题的思考">
-<meta property="og:url" content="pandalink.tech/2018/04/29/一个简单sql题的思考/index.html">
+<meta property="og:title" content="IDEA入坑手册">
+<meta property="og:url" content="pandalink.tech/2018/05/27/IDEA入坑手册/index.html">
 <meta property="og:site_name" content="panda的blog">
-<meta property="og:description" content="一个简单的sql查询题目">
+<meta property="og:description" content="IDEA">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/3/3/161eb0faa6836c71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
-<meta property="og:updated_time" content="2018-04-29T08:28:58.048Z">
+<meta property="og:updated_time" content="2018-05-27T05:18:01.811Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个简单sql题的思考">
-<meta name="twitter:description" content="一个简单的sql查询题目">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/3/3/161eb0faa6836c71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta name="twitter:title" content="IDEA入坑手册">
+<meta name="twitter:description" content="IDEA">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="pandalink.tech/2018/04/29/一个简单sql题的思考/"/>
+  <link rel="canonical" href="pandalink.tech/2018/05/27/IDEA入坑手册/"/>
 
 
 
 
 
-  <title>一个简单sql题的思考 | panda的blog</title>
+  <title>IDEA入坑手册 | panda的blog</title>
   
 
 
@@ -257,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="pandalink.tech/2018/04/29/一个简单sql题的思考/">
+    <link itemprop="mainEntityOfPage" href="pandalink.tech/2018/05/27/IDEA入坑手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="April">
@@ -274,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">一个简单sql题的思考</h1>
+          <h1 class="post-title" itemprop="name headline">IDEA入坑手册</h1>
         
 
         <div class="post-meta">
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-29T16:27:17+08:00">
-                2018-04-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-27T13:16:41+08:00">
+                2018-05-27
               </time>
             
 
@@ -309,8 +309,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SQL基础/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL基础</span>
+                  <a href="/categories/IDEA/" itemprop="url" rel="index">
+                    <span itemprop="name">IDEA</span>
                   </a>
                 </span>
 
@@ -333,7 +333,7 @@
 
           
               <div class="post-description">
-                  一个简单的sql查询题目
+                  IDEA
               </div>
           
 
@@ -350,28 +350,10 @@
       
 
       
-        <h1 id="nbsp-nbsp-一个简单的sql题的思考"><a href="#nbsp-nbsp-一个简单的sql题的思考" class="headerlink" title="&nbsp;&nbsp;一个简单的sql题的思考"></a>&nbsp;&nbsp;一个简单的sql题的思考</h1><h4 id="题目长这样"><a href="#题目长这样" class="headerlink" title="题目长这样"></a><strong>题目长这样</strong></h4><p><img src="https://user-gold-cdn.xitu.io/2018/3/3/161eb0faa6836c71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="治好了多年的颈椎？" title="查看大图"></p>
-<h3 id="这么简单的题，于是1分钟不到我们有了解法1"><a href="#这么简单的题，于是1分钟不到我们有了解法1" class="headerlink" title="这么简单的题，于是1分钟不到我们有了解法1"></a>这么简单的题，于是1分钟不到我们有了<em>解法1</em></h3><ul>
-<li><strong>子查询 + not in</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct t.name from student t where t.name not in(select t.name from student t where t.score &lt;= 80)</span><br></pre></td></tr></table></figure>
-</li>
+        <h1 id="IDEA-入坑手册"><a href="#IDEA-入坑手册" class="headerlink" title="IDEA 入坑手册"></a>IDEA 入坑手册</h1><ul>
+<li><h3 id="思前想后用了这个标题。其实IDEA在17年我就用过，"><a href="#思前想后用了这个标题。其实IDEA在17年我就用过，" class="headerlink" title="思前想后用了这个标题。其实IDEA在17年我就用过，"></a>思前想后用了这个标题。其实IDEA在17年我就用过，</h3>但仅仅是2天，用不下去了，还是退回了Eclipse平台。</li>
 </ul>
-<p>这种写法比较容易想到，先查至少有一门课程小于80，然后not in ，就是查询所有课程都大于80。但是比较冗余，也没啥技术含量，关键这种如果数据量多效率也不好，于是我们有了<strong>解法2。</strong></p>
-<ul>
-<li><strong>子查询 + group by + having + not in</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select t.name from student t group by t.name having t.name not in(select t.name from student t where t.score &lt;= 80)</span><br></pre></td></tr></table></figure>
-<p>一眼望去貌似和上面那种差别不大，只是加了一个分组而已？ 但是我们发现，这种写法不需要加去重，因为已经分组了。总的来说，这种写法略优于解法1，但还是老毛病，子查询需要查询2次，效率不高，于是，我们有了<strong>解法3.</strong></p>
-<ul>
-<li><strong>group by + having + count</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select t.name from student t group by t.name having count(t.score) = sum(case when t.score &gt; 80 then 1 else 0 end)</span><br></pre></td></tr></table></figure>
-<p>咳咳，这种写法就比较炫技了，又是分组又是聚合函数的。但是也是一种思路。至于效率的话，和第二种半斤八两，只能说这个逼装的挺6。难道没有一种不需要子查询的么？ 让我们看看<strong>解法4</strong></p>
-<ul>
-<li><strong>group by + having + min</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select t.name from student t group by t.name having min(t.score) &gt; 80</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>高手过招，一招制敌。用这句话形容解法4再合适不过了，抓住了题目的关键点，合理的使用min()聚合函数。应该是这题的最优解。</p>
-
+<h3 id="下载（记得下旗舰版！！！），安装，然后开始idea之旅。这里提供2个学习blog和一个视频。“请叫我大师兄-IDEA教程”-“维c果糖-IDEA教程”-以及-“黑马程序员-IDEA-教学视频”。"><a href="#下载（记得下旗舰版！！！），安装，然后开始idea之旅。这里提供2个学习blog和一个视频。“请叫我大师兄-IDEA教程”-“维c果糖-IDEA教程”-以及-“黑马程序员-IDEA-教学视频”。" class="headerlink" title="下载（记得下旗舰版！！！），安装，然后开始idea之旅。这里提供2个学习blog和一个视频。“请叫我大师兄 IDEA教程” “维c果糖 IDEA教程” 以及 “黑马程序员 IDEA 教学视频”。"></a>下载（记得下旗舰版！！！），安装，然后开始idea之旅。这里提供2个学习blog和一个视频。<a href="https://blog.csdn.net/qq_27093465/article/details/77449117" title="1" target="_blank" rel="noopener">“请叫我大师兄 IDEA教程”</a> <a href="https://blog.csdn.net/column/details/14873.html" title="2" target="_blank" rel="noopener">“维c果糖 IDEA教程”</a> 以及 <a href="https://www.bilibili.com/video/av21735428" title="3" target="_blank" rel="noopener">“黑马程序员 IDEA 教学视频”</a>。</h3>
       
     </div>
     
@@ -388,11 +370,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/T-SQL基础/" rel="tag"># T-SQL基础</a>
+            <a href="/tags/Java-工具/" rel="tag"># Java 工具</a>
           
-            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+            <a href="/tags/Java-IDE/" rel="tag"># Java IDE</a>
           
-            <a href="/tags/SQL语句/" rel="tag"># SQL语句</a>
+            <a href="/tags/Java-IDEA/" rel="tag"># Java IDEA</a>
           
         </div>
       
@@ -405,8 +387,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/29/JVM内存结构/" rel="next" title="JVM内存结构">
-                <i class="fa fa-chevron-left"></i> JVM内存结构
+              <a href="/2018/05/20/Java7新特性/" rel="next" title="Java7新特性">
+                <i class="fa fa-chevron-left"></i> Java7新特性
               </a>
             
           </div>
@@ -414,10 +396,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/29/JavaIO-思维导图（简图）/" rel="prev" title="JavaIO 思维导图（简图）">
-                JavaIO 思维导图（简图） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -558,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#nbsp-nbsp-一个简单的sql题的思考"><span class="nav-number">1.</span> <span class="nav-text"><a href="#nbsp-nbsp-&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;sql&#x9898;&#x7684;&#x601D;&#x8003;" class="headerlink" title="&#xA0;&#xA0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;sql&#x9898;&#x7684;&#x601D;&#x8003;"></a>&#xA0;&#xA0;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;sql&#x9898;&#x7684;&#x601D;&#x8003;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目长这样"><span class="nav-number">1.0.0.1.</span> <span class="nav-text"><a href="#&#x9898;&#x76EE;&#x957F;&#x8FD9;&#x6837;" class="headerlink" title="&#x9898;&#x76EE;&#x957F;&#x8FD9;&#x6837;"></a><strong>&#x9898;&#x76EE;&#x957F;&#x8FD9;&#x6837;</strong></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这么简单的题，于是1分钟不到我们有了解法1"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x7684;&#x9898;&#xFF0C;&#x4E8E;&#x662F;1&#x5206;&#x949F;&#x4E0D;&#x5230;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x89E3;&#x6CD5;1" class="headerlink" title="&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x7684;&#x9898;&#xFF0C;&#x4E8E;&#x662F;1&#x5206;&#x949F;&#x4E0D;&#x5230;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x89E3;&#x6CD5;1"></a>&#x8FD9;&#x4E48;&#x7B80;&#x5355;&#x7684;&#x9898;&#xFF0C;&#x4E8E;&#x662F;1&#x5206;&#x949F;&#x4E0D;&#x5230;&#x6211;&#x4EEC;&#x6709;&#x4E86;<em>&#x89E3;&#x6CD5;1</em></span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IDEA-入坑手册"><span class="nav-number">1.</span> <span class="nav-text"><a href="#IDEA-&#x5165;&#x5751;&#x624B;&#x518C;" class="headerlink" title="IDEA &#x5165;&#x5751;&#x624B;&#x518C;"></a>IDEA &#x5165;&#x5751;&#x624B;&#x518C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思前想后用了这个标题。其实IDEA在17年我就用过，"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x601D;&#x524D;&#x60F3;&#x540E;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;&#x6807;&#x9898;&#x3002;&#x5176;&#x5B9E;IDEA&#x5728;17&#x5E74;&#x6211;&#x5C31;&#x7528;&#x8FC7;&#xFF0C;" class="headerlink" title="&#x601D;&#x524D;&#x60F3;&#x540E;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;&#x6807;&#x9898;&#x3002;&#x5176;&#x5B9E;IDEA&#x5728;17&#x5E74;&#x6211;&#x5C31;&#x7528;&#x8FC7;&#xFF0C;"></a>&#x601D;&#x524D;&#x60F3;&#x540E;&#x7528;&#x4E86;&#x8FD9;&#x4E2A;&#x6807;&#x9898;&#x3002;&#x5176;&#x5B9E;IDEA&#x5728;17&#x5E74;&#x6211;&#x5C31;&#x7528;&#x8FC7;&#xFF0C;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载（记得下旗舰版！！！），安装，然后开始idea之旅。这里提供2个学习blog和一个视频。“请叫我大师兄-IDEA教程”-“维c果糖-IDEA教程”-以及-“黑马程序员-IDEA-教学视频”。"><span class="nav-number">1.0.2.</span> <span class="nav-text"><a href="#&#x4E0B;&#x8F7D;&#xFF08;&#x8BB0;&#x5F97;&#x4E0B;&#x65D7;&#x8230;&#x7248;&#xFF01;&#xFF01;&#xFF01;&#xFF09;&#xFF0C;&#x5B89;&#x88C5;&#xFF0C;&#x7136;&#x540E;&#x5F00;&#x59CB;idea&#x4E4B;&#x65C5;&#x3002;&#x8FD9;&#x91CC;&#x63D0;&#x4F9B;2&#x4E2A;&#x5B66;&#x4E60;blog&#x548C;&#x4E00;&#x4E2A;&#x89C6;&#x9891;&#x3002;&#x201C;&#x8BF7;&#x53EB;&#x6211;&#x5927;&#x5E08;&#x5144;-IDEA&#x6559;&#x7A0B;&#x201D;-&#x201C;&#x7EF4;c&#x679C;&#x7CD6;-IDEA&#x6559;&#x7A0B;&#x201D;-&#x4EE5;&#x53CA;-&#x201C;&#x9ED1;&#x9A6C;&#x7A0B;&#x5E8F;&#x5458;-IDEA-&#x6559;&#x5B66;&#x89C6;&#x9891;&#x201D;&#x3002;" class="headerlink" title="&#x4E0B;&#x8F7D;&#xFF08;&#x8BB0;&#x5F97;&#x4E0B;&#x65D7;&#x8230;&#x7248;&#xFF01;&#xFF01;&#xFF01;&#xFF09;&#xFF0C;&#x5B89;&#x88C5;&#xFF0C;&#x7136;&#x540E;&#x5F00;&#x59CB;idea&#x4E4B;&#x65C5;&#x3002;&#x8FD9;&#x91CC;&#x63D0;&#x4F9B;2&#x4E2A;&#x5B66;&#x4E60;blog&#x548C;&#x4E00;&#x4E2A;&#x89C6;&#x9891;&#x3002;&#x201C;&#x8BF7;&#x53EB;&#x6211;&#x5927;&#x5E08;&#x5144; IDEA&#x6559;&#x7A0B;&#x201D; &#x201C;&#x7EF4;c&#x679C;&#x7CD6; IDEA&#x6559;&#x7A0B;&#x201D; &#x4EE5;&#x53CA; &#x201C;&#x9ED1;&#x9A6C;&#x7A0B;&#x5E8F;&#x5458; IDEA &#x6559;&#x5B66;&#x89C6;&#x9891;&#x201D;&#x3002;"></a>&#x4E0B;&#x8F7D;&#xFF08;&#x8BB0;&#x5F97;&#x4E0B;&#x65D7;&#x8230;&#x7248;&#xFF01;&#xFF01;&#xFF01;&#xFF09;&#xFF0C;&#x5B89;&#x88C5;&#xFF0C;&#x7136;&#x540E;&#x5F00;&#x59CB;idea&#x4E4B;&#x65C5;&#x3002;&#x8FD9;&#x91CC;&#x63D0;&#x4F9B;2&#x4E2A;&#x5B66;&#x4E60;blog&#x548C;&#x4E00;&#x4E2A;&#x89C6;&#x9891;&#x3002;<a href="https://blog.csdn.net/qq_27093465/article/details/77449117" title="1" target="_blank" rel="noopener">&#x201C;&#x8BF7;&#x53EB;&#x6211;&#x5927;&#x5E08;&#x5144; IDEA&#x6559;&#x7A0B;&#x201D;</a> <a href="https://blog.csdn.net/column/details/14873.html" title="2" target="_blank" rel="noopener">&#x201C;&#x7EF4;c&#x679C;&#x7CD6; IDEA&#x6559;&#x7A0B;&#x201D;</a> &#x4EE5;&#x53CA; <a href="https://www.bilibili.com/video/av21735428" title="3" target="_blank" rel="noopener">&#x201C;&#x9ED1;&#x9A6C;&#x7A0B;&#x5E8F;&#x5458; IDEA &#x6559;&#x5B66;&#x89C6;&#x9891;&#x201D;</a>&#x3002;</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
