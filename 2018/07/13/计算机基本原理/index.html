@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机底层,进制,硬件," />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="基本原理">
+<meta name="keywords" content="计算机底层,进制,硬件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机基本原理">
+<meta property="og:url" content="pandalink.tech/2018/07/13/计算机基本原理/index.html">
+<meta property="og:site_name" content="panda的blog">
+<meta property="og:description" content="基本原理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-12T17:09:09.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机基本原理">
+<meta name="twitter:description" content="基本原理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="pandalink.tech/2018/07/13/计算机基本原理/"/>
+
+
+
+
+
+  <title>计算机基本原理 | panda的blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">panda的blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">程序猿</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="pandalink.tech/2018/07/13/计算机基本原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="panda的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机基本原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T13:16:41+08:00">
+                2018-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  基本原理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="计算机原理"><a href="#计算机原理" class="headerlink" title="计算机原理"></a>计算机原理</h1><ul>
+<li><h3 id="计算机为什么能读懂机器码（二进制码）"><a href="#计算机为什么能读懂机器码（二进制码）" class="headerlink" title="计算机为什么能读懂机器码（二进制码）"></a>计算机为什么能读懂机器码（二进制码）</h3></li>
+</ul>
+<p>结论：计算机是个巨大的状态机！计算机不能读懂机器码！它只会执行！</p>
+<blockquote>
+<p><strong>机器码只是些0和1的组合</strong>，这些组合对应着各种寄存器或者某些逻辑电路的状态。设置这种状态的机器码叫做CPU指令，不过也许叫做opcode更精确。</p>
+<p>0和1与高低电平的关系。0和1本身并非客观存在，而是对于某种客观存在的主观抽象。换句话说，0和1只是高低电平的代名词。在计算机里，它们就是高低电平的抽象。它们只是用来表示高低电平的。<em>所以不是先有0和1，而是先有高低电平。然后为了表示上的方便，用0和1去代替高低电平。所有0和1的地方，都可以机械地用高、低电平去进行替换！</em>至于0、1与高电平、低电平的对应关系，不是绝对的，只要一致就行了。举例：十进制数“5”用二进制来表示则是“0101”，假设高电平用1来表示，低电平用0来表示，那么5的二进制表示也可以写成 “低电平 高电平 低电平 高电平”或者“低高低高”，但显然“0101”更方便。</p>
+<p>CPU“内置”指令集，这些指令集其实是一些硬件结构来的。只要传递一个指令（0和1的组合），<strong>CPU就会依赖于它的电路来解码（高低电平）</strong>，然后操作对应的寄存器或者某些电路，然后这一时刻的CPU就是某一个状态，这个状态会依据输入的指令和当前状态来迁移到下一个状态，至于如何迁移，这就是指令对应的电路的设计了。另一些“电路”负责从内存中取下一条指令。</p>
+<p>这一切都是数电的逻辑而已，压根不需要学模电。自己用一些数字电路芯片接线就可以搭出一个逻辑电路，就是性能低了点而已。CPU就是这么“搭”出来的，不过是用硬件描述语言而不是直接手工接线。</p>
+<p>实际上，利用Verilog HDL 等硬件描述语言再加上FPGA 芯片，自己也可以实现一个CPU，具体可以参考MIPS CPU的规格说明和指令集。这个CPU的性能比自己用数电芯片手工接线的要快，不过还是比不上桌面CPU。但原理基本是一样的。</p>
+<p>首先我们要理解问题。问题是“为什么计算机能读懂机器码”。<br>这里有几个关键的概念：<br>“计算机”、“能”、“读”、“懂”、“机器码”。</p>
+<p>问为什么能之前，要记得先问是不是能。<br>计算机是不是能读懂机器码？</p>
+<p>那我们要先定义什么是“懂”。什么程度才算“懂”。这里我就简单理解为“理解机器码的含义”。<br>有时候我们是不需要懂的，例如为什么1+1=2，我们不需要懂，但是仍然可以计算出1+1=2，因为这是规则，规定好的。因为我也可以规定1+1=3，1+1+1=2，反正就是个符号。我规定了3就是两个手指头，2就是三个手指头，这样也可以的。</p>
+<p>接着是“读”，计算机的底层结构是一些门电路，也就是说，输入高电平（或低电平）会输出高电平（或低电平）。这就是所谓的读。<br>那么什么是机器码，上面也说了，<strong>机器码是只是高低电平的抽象表示。</strong></p>
+<p>那么这个问题，可以等价地转换为其他的问题，例如：<br>“为什么图灵机能读懂0和1的组合？”<br>这是从高级别的抽象层次去理解问题的。<br>还可以是“为什么门电路能读懂高低电平？”<br>要从哪个层次去理解问题，就看你的需求了。</p>
+<p>计算机的根本，要从图灵机的原理说起，图灵机你可以简单地理解为一台机器，有输入端和输出端，内部能存储一些状态，内置了一些状态迁移的规则。其实就是状态机啦。输入端（输出端）能读取（输出）1或0的串。输入的0或1的组合，可以改变及机器内部的状态。然后根据输入和内部状态，去查规则表，输出另一些0或1的串。</p>
+<p>根据这个思想，这种状态机，自己用个switch语句就能写出来，或者用查表法，别笑，虚拟机就是这么搞出来的。当然我们也能用门电路搭建出来。但是效率比较低，而且挺复杂的，如果你不搞EE，只是CS方向的话，模电原理可以忽略不计，我们用现成的数电芯片来搭建，常用的就是74系列的芯片，它们集成了一些逻辑门，用起来方便一点。逻辑门应该不用我多说了吧，这些在布尔代数里都有相应的抽象概念。就是与或非之类的。</p>
+<p>这些芯片有一些管脚，一些输入管脚，一些输出管脚，有一张真值表，输入一些高低电平的组合，就会根据真值表，输出另外一些高低电平的组合。如果把几个这样的芯片组合起来，根据它们的真值表，设计好自己的状态集以及状态迁移规则，就会得到一个状态机。</p>
+<p>这个数字钟的输入端是用钮子开关来做的。也就是说，人机交互的接口是这个钮子开关，钮子开关的开合改变了输入端口的高低电平，几个钮子开关的状态的排列组合，就是所谓的指令集。但人不擅长2进制，2进制的指令也不好记，如果我们在人机接口加个中间层，把手动输入变成中间层的输出，就可以极大地增强这台机器的抽象能力。如果我们把这些2进制指令给个名称，那就是简陋版的汇编语言。这个中间层可以是简陋的T9键盘，方便设置数字钟的数字。我们可以在人和中间层之间添加任意多个中间层，中间层越多，抽象能力越强，当然性能也就越低。这也说明了为什么虚拟机就是比物理机要慢一些，高级语言写的程序理论上就是比低级语言写的程序慢一些。因为抽象能力越强，需要做的状态转换就越多。有些状态是冗余的。只是为了方便人的使用而做的“语法糖”（这里借用了语法糖一词）。</p>
+<p>我们还可以将一些指令做成独立的硬件结构，例如加法器，我们在算术上是怎么进行二进制加法运算的，就可以如法炮制在这些逻辑电路中。当我们根据一个冯诺依曼体系结构构建了必要的模块，组合起来之后，它就是一台计算机。</p>
+<p>说到这里，其实应该很容易明白了，还是那句话，计算机不懂机器码，它内部有几张“真值表”，这些真值表组合成了状态转换规则。计算机只是负责根据输入的高低电平，“查表”转换输出高低电平而已。</p>
+</blockquote>
+<ul>
+<li><h3 id="流的概念"><a href="#流的概念" class="headerlink" title="流的概念"></a>流的概念</h3><p>我们知道，计算机底层存储结构是二进制码，也是是高低电平。计算机中的流其实是一种信息的转换。它是一种有序流，因此相对于某一对象，通常我们把对象接收外界的信息输入（Input）称为输入流，相应地从对象向外输出（Output）信息为输出流，合称为输入/输出流（I/O Streams）。对象间进行信息或者数据的交换时总是先将对象或数据转换为某种形式的流，再通过流的传输，到达目的对象后再将流转换为对象数据。所以，<strong>可以把流看作是一种数据的载体，通过它可以实现数据交换和传输。</strong></p>
+</li>
+<li><h3 id="计算机底层选用二进制的原因："><a href="#计算机底层选用二进制的原因：" class="headerlink" title="计算机底层选用二进制的原因："></a>计算机底层选用二进制的原因：</h3></li>
+</ul>
+<ol>
+<li><h4 id="技术上容易实现。用双稳态电路表示二进制数字0和1是很容易的事情。"><a href="#技术上容易实现。用双稳态电路表示二进制数字0和1是很容易的事情。" class="headerlink" title="技术上容易实现。用双稳态电路表示二进制数字0和1是很容易的事情。"></a><strong>技术上容易实现</strong>。用双稳态电路表示二进制数字0和1是很容易的事情。</h4></li>
+<li><h4 id="可靠性高。二进制中只使用0和1两个数字，传输和处理时不易出错，因而保障计算机具有很高的可靠性。"><a href="#可靠性高。二进制中只使用0和1两个数字，传输和处理时不易出错，因而保障计算机具有很高的可靠性。" class="headerlink" title="可靠性高。二进制中只使用0和1两个数字，传输和处理时不易出错，因而保障计算机具有很高的可靠性。"></a><strong>可靠性高</strong>。二进制中只使用0和1两个数字，传输和处理时不易出错，因而保障计算机具有很高的可靠性。</h4></li>
+<li><h4 id="运算规则简单。与十进制数相比，二进制的运算规则要简单得多，这不仅可以使运算器的结构得到简化，而且有利于提高运算速度。"><a href="#运算规则简单。与十进制数相比，二进制的运算规则要简单得多，这不仅可以使运算器的结构得到简化，而且有利于提高运算速度。" class="headerlink" title="运算规则简单。与十进制数相比，二进制的运算规则要简单得多，这不仅可以使运算器的结构得到简化，而且有利于提高运算速度。"></a><strong>运算规则简单</strong>。与十进制数相比，二进制的运算规则要简单得多，这不仅可以使运算器的结构得到简化，而且有利于提高运算速度。</h4></li>
+<li><h4 id="与逻辑量相吻合。二进制数0和1正好与逻辑量“真”和“假”相对应，因此用二进制数表示二值逻辑显得十分自然。"><a href="#与逻辑量相吻合。二进制数0和1正好与逻辑量“真”和“假”相对应，因此用二进制数表示二值逻辑显得十分自然。" class="headerlink" title="与逻辑量相吻合。二进制数0和1正好与逻辑量“真”和“假”相对应，因此用二进制数表示二值逻辑显得十分自然。"></a><strong>与逻辑量相吻合</strong>。二进制数0和1正好与逻辑量“真”和“假”相对应，因此用二进制数表示二值逻辑显得十分自然。</h4></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机底层/" rel="tag"># 计算机底层</a>
+          
+            <a href="/tags/进制/" rel="tag"># 进制</a>
+          
+            <a href="/tags/硬件/" rel="tag"># 硬件</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/30/Java杂记/" rel="next" title="Java杂记">
+                <i class="fa fa-chevron-left"></i> Java杂记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">April</p>
+              <p class="site-description motion-element" itemprop="description">温柔只给意中人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机原理"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x8BA1;&#x7B97;&#x673A;&#x539F;&#x7406;" class="headerlink" title="&#x8BA1;&#x7B97;&#x673A;&#x539F;&#x7406;"></a>&#x8BA1;&#x7B97;&#x673A;&#x539F;&#x7406;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机为什么能读懂机器码（二进制码）"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x8BA1;&#x7B97;&#x673A;&#x4E3A;&#x4EC0;&#x4E48;&#x80FD;&#x8BFB;&#x61C2;&#x673A;&#x5668;&#x7801;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x7801;&#xFF09;" class="headerlink" title="&#x8BA1;&#x7B97;&#x673A;&#x4E3A;&#x4EC0;&#x4E48;&#x80FD;&#x8BFB;&#x61C2;&#x673A;&#x5668;&#x7801;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x7801;&#xFF09;"></a>&#x8BA1;&#x7B97;&#x673A;&#x4E3A;&#x4EC0;&#x4E48;&#x80FD;&#x8BFB;&#x61C2;&#x673A;&#x5668;&#x7801;&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x7801;&#xFF09;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流的概念"><span class="nav-number">1.0.2.</span> <span class="nav-text"><a href="#&#x6D41;&#x7684;&#x6982;&#x5FF5;" class="headerlink" title="&#x6D41;&#x7684;&#x6982;&#x5FF5;"></a>&#x6D41;&#x7684;&#x6982;&#x5FF5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机底层选用二进制的原因："><span class="nav-number">1.0.3.</span> <span class="nav-text"><a href="#&#x8BA1;&#x7B97;&#x673A;&#x5E95;&#x5C42;&#x9009;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x539F;&#x56E0;&#xFF1A;" class="headerlink" title="&#x8BA1;&#x7B97;&#x673A;&#x5E95;&#x5C42;&#x9009;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x539F;&#x56E0;&#xFF1A;"></a>&#x8BA1;&#x7B97;&#x673A;&#x5E95;&#x5C42;&#x9009;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x539F;&#x56E0;&#xFF1A;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#技术上容易实现。用双稳态电路表示二进制数字0和1是很容易的事情。"><span class="nav-number">1.0.3.1.</span> <span class="nav-text"><a href="#&#x6280;&#x672F;&#x4E0A;&#x5BB9;&#x6613;&#x5B9E;&#x73B0;&#x3002;&#x7528;&#x53CC;&#x7A33;&#x6001;&#x7535;&#x8DEF;&#x8868;&#x793A;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x5B57;0&#x548C;1&#x662F;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x4E8B;&#x60C5;&#x3002;" class="headerlink" title="&#x6280;&#x672F;&#x4E0A;&#x5BB9;&#x6613;&#x5B9E;&#x73B0;&#x3002;&#x7528;&#x53CC;&#x7A33;&#x6001;&#x7535;&#x8DEF;&#x8868;&#x793A;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x5B57;0&#x548C;1&#x662F;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x4E8B;&#x60C5;&#x3002;"></a><strong>&#x6280;&#x672F;&#x4E0A;&#x5BB9;&#x6613;&#x5B9E;&#x73B0;</strong>&#x3002;&#x7528;&#x53CC;&#x7A33;&#x6001;&#x7535;&#x8DEF;&#x8868;&#x793A;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x5B57;0&#x548C;1&#x662F;&#x5F88;&#x5BB9;&#x6613;&#x7684;&#x4E8B;&#x60C5;&#x3002;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可靠性高。二进制中只使用0和1两个数字，传输和处理时不易出错，因而保障计算机具有很高的可靠性。"><span class="nav-number">1.0.3.2.</span> <span class="nav-text"><a href="#&#x53EF;&#x9760;&#x6027;&#x9AD8;&#x3002;&#x4E8C;&#x8FDB;&#x5236;&#x4E2D;&#x53EA;&#x4F7F;&#x7528;0&#x548C;1&#x4E24;&#x4E2A;&#x6570;&#x5B57;&#xFF0C;&#x4F20;&#x8F93;&#x548C;&#x5904;&#x7406;&#x65F6;&#x4E0D;&#x6613;&#x51FA;&#x9519;&#xFF0C;&#x56E0;&#x800C;&#x4FDD;&#x969C;&#x8BA1;&#x7B97;&#x673A;&#x5177;&#x6709;&#x5F88;&#x9AD8;&#x7684;&#x53EF;&#x9760;&#x6027;&#x3002;" class="headerlink" title="&#x53EF;&#x9760;&#x6027;&#x9AD8;&#x3002;&#x4E8C;&#x8FDB;&#x5236;&#x4E2D;&#x53EA;&#x4F7F;&#x7528;0&#x548C;1&#x4E24;&#x4E2A;&#x6570;&#x5B57;&#xFF0C;&#x4F20;&#x8F93;&#x548C;&#x5904;&#x7406;&#x65F6;&#x4E0D;&#x6613;&#x51FA;&#x9519;&#xFF0C;&#x56E0;&#x800C;&#x4FDD;&#x969C;&#x8BA1;&#x7B97;&#x673A;&#x5177;&#x6709;&#x5F88;&#x9AD8;&#x7684;&#x53EF;&#x9760;&#x6027;&#x3002;"></a><strong>&#x53EF;&#x9760;&#x6027;&#x9AD8;</strong>&#x3002;&#x4E8C;&#x8FDB;&#x5236;&#x4E2D;&#x53EA;&#x4F7F;&#x7528;0&#x548C;1&#x4E24;&#x4E2A;&#x6570;&#x5B57;&#xFF0C;&#x4F20;&#x8F93;&#x548C;&#x5904;&#x7406;&#x65F6;&#x4E0D;&#x6613;&#x51FA;&#x9519;&#xFF0C;&#x56E0;&#x800C;&#x4FDD;&#x969C;&#x8BA1;&#x7B97;&#x673A;&#x5177;&#x6709;&#x5F88;&#x9AD8;&#x7684;&#x53EF;&#x9760;&#x6027;&#x3002;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运算规则简单。与十进制数相比，二进制的运算规则要简单得多，这不仅可以使运算器的结构得到简化，而且有利于提高运算速度。"><span class="nav-number">1.0.3.3.</span> <span class="nav-text"><a href="#&#x8FD0;&#x7B97;&#x89C4;&#x5219;&#x7B80;&#x5355;&#x3002;&#x4E0E;&#x5341;&#x8FDB;&#x5236;&#x6570;&#x76F8;&#x6BD4;&#xFF0C;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x8FD0;&#x7B97;&#x89C4;&#x5219;&#x8981;&#x7B80;&#x5355;&#x5F97;&#x591A;&#xFF0C;&#x8FD9;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x4F7F;&#x8FD0;&#x7B97;&#x5668;&#x7684;&#x7ED3;&#x6784;&#x5F97;&#x5230;&#x7B80;&#x5316;&#xFF0C;&#x800C;&#x4E14;&#x6709;&#x5229;&#x4E8E;&#x63D0;&#x9AD8;&#x8FD0;&#x7B97;&#x901F;&#x5EA6;&#x3002;" class="headerlink" title="&#x8FD0;&#x7B97;&#x89C4;&#x5219;&#x7B80;&#x5355;&#x3002;&#x4E0E;&#x5341;&#x8FDB;&#x5236;&#x6570;&#x76F8;&#x6BD4;&#xFF0C;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x8FD0;&#x7B97;&#x89C4;&#x5219;&#x8981;&#x7B80;&#x5355;&#x5F97;&#x591A;&#xFF0C;&#x8FD9;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x4F7F;&#x8FD0;&#x7B97;&#x5668;&#x7684;&#x7ED3;&#x6784;&#x5F97;&#x5230;&#x7B80;&#x5316;&#xFF0C;&#x800C;&#x4E14;&#x6709;&#x5229;&#x4E8E;&#x63D0;&#x9AD8;&#x8FD0;&#x7B97;&#x901F;&#x5EA6;&#x3002;"></a><strong>&#x8FD0;&#x7B97;&#x89C4;&#x5219;&#x7B80;&#x5355;</strong>&#x3002;&#x4E0E;&#x5341;&#x8FDB;&#x5236;&#x6570;&#x76F8;&#x6BD4;&#xFF0C;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x8FD0;&#x7B97;&#x89C4;&#x5219;&#x8981;&#x7B80;&#x5355;&#x5F97;&#x591A;&#xFF0C;&#x8FD9;&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x4F7F;&#x8FD0;&#x7B97;&#x5668;&#x7684;&#x7ED3;&#x6784;&#x5F97;&#x5230;&#x7B80;&#x5316;&#xFF0C;&#x800C;&#x4E14;&#x6709;&#x5229;&#x4E8E;&#x63D0;&#x9AD8;&#x8FD0;&#x7B97;&#x901F;&#x5EA6;&#x3002;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与逻辑量相吻合。二进制数0和1正好与逻辑量“真”和“假”相对应，因此用二进制数表示二值逻辑显得十分自然。"><span class="nav-number">1.0.3.4.</span> <span class="nav-text"><a href="#&#x4E0E;&#x903B;&#x8F91;&#x91CF;&#x76F8;&#x543B;&#x5408;&#x3002;&#x4E8C;&#x8FDB;&#x5236;&#x6570;0&#x548C;1&#x6B63;&#x597D;&#x4E0E;&#x903B;&#x8F91;&#x91CF;&#x201C;&#x771F;&#x201D;&#x548C;&#x201C;&#x5047;&#x201D;&#x76F8;&#x5BF9;&#x5E94;&#xFF0C;&#x56E0;&#x6B64;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x8868;&#x793A;&#x4E8C;&#x503C;&#x903B;&#x8F91;&#x663E;&#x5F97;&#x5341;&#x5206;&#x81EA;&#x7136;&#x3002;" class="headerlink" title="&#x4E0E;&#x903B;&#x8F91;&#x91CF;&#x76F8;&#x543B;&#x5408;&#x3002;&#x4E8C;&#x8FDB;&#x5236;&#x6570;0&#x548C;1&#x6B63;&#x597D;&#x4E0E;&#x903B;&#x8F91;&#x91CF;&#x201C;&#x771F;&#x201D;&#x548C;&#x201C;&#x5047;&#x201D;&#x76F8;&#x5BF9;&#x5E94;&#xFF0C;&#x56E0;&#x6B64;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x8868;&#x793A;&#x4E8C;&#x503C;&#x903B;&#x8F91;&#x663E;&#x5F97;&#x5341;&#x5206;&#x81EA;&#x7136;&#x3002;"></a><strong>&#x4E0E;&#x903B;&#x8F91;&#x91CF;&#x76F8;&#x543B;&#x5408;</strong>&#x3002;&#x4E8C;&#x8FDB;&#x5236;&#x6570;0&#x548C;1&#x6B63;&#x597D;&#x4E0E;&#x903B;&#x8F91;&#x91CF;&#x201C;&#x771F;&#x201D;&#x548C;&#x201C;&#x5047;&#x201D;&#x76F8;&#x5BF9;&#x5E94;&#xFF0C;&#x56E0;&#x6B64;&#x7528;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x8868;&#x793A;&#x4E8C;&#x503C;&#x903B;&#x8F91;&#x663E;&#x5F97;&#x5341;&#x5206;&#x81EA;&#x7136;&#x3002;</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
