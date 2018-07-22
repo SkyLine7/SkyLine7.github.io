@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo Blog panda" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="字符集与进制 计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？ 二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数,于是规定计算机最小的单位：byte(字节) = 8bit(位)， 1字节可以组合出 256 种状态。如果这 256中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="panda的blog">
+<meta property="og:url" content="pandalink.tech/2018/07/22/字符集与进制/index.html">
+<meta property="og:site_name" content="panda的blog">
+<meta property="og:description" content="字符集与进制 计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？ 二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数,于是规定计算机最小的单位：byte(字节) = 8bit(位)， 1字节可以组合出 256 种状态。如果这 256中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-22T12:49:01.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="panda的blog">
+<meta name="twitter:description" content="字符集与进制 计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？ 二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数,于是规定计算机最小的单位：byte(字节) = 8bit(位)， 1字节可以组合出 256 种状态。如果这 256中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="pandalink.tech/2018/07/22/字符集与进制/"/>
+
+
+
+
+
+  <title> | panda的blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">panda的blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">程序猿</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="pandalink.tech/2018/07/22/字符集与进制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="panda的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-22T20:46:16+08:00">
+                2018-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="字符集与进制"><a href="#字符集与进制" class="headerlink" title="字符集与进制"></a>字符集与进制</h1><ul>
+<li><h3 id="计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？"><a href="#计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？" class="headerlink" title="计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？"></a>计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？</h3></li>
+<li><h3 id="二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数-于是规定计算机最小的单位：byte-字节-8bit-位-，-1字节可以组合出-256-种状态。如果这-256中状态每一个都对应一个符号，就能通过1字节的数据表示-256个字符，于是美国人民把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10-终端就换行，遇上0x07-终端就向人们嘟嘟叫，例好遇上0x1b-打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为”控制码”。又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。这个方案叫做ANSI的ASCII编码（American-Standard-Code-for-Information-Interchange，美国信息互换标准代码）。世界上所有的计算机都用同样的ASCII方案来保存英文文字。"><a href="#二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数-于是规定计算机最小的单位：byte-字节-8bit-位-，-1字节可以组合出-256-种状态。如果这-256中状态每一个都对应一个符号，就能通过1字节的数据表示-256个字符，于是美国人民把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10-终端就换行，遇上0x07-终端就向人们嘟嘟叫，例好遇上0x1b-打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为”控制码”。又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。这个方案叫做ANSI的ASCII编码（American-Standard-Code-for-Information-Interchange，美国信息互换标准代码）。世界上所有的计算机都用同样的ASCII方案来保存英文文字。" class="headerlink" title="二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数,于是规定计算机最小的单位：byte(字节) = 8bit(位)， 1字节可以组合出 256 种状态。如果这 256中状态每一个都对应一个符号，就能通过1字节的数据表示 256个字符，于是美国人民把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10,终端就换行，遇上0x07,终端就向人们嘟嘟叫，例好遇上0x1b,打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为”控制码”。又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。这个方案叫做ANSI的ASCII编码（American Standard Code for Information Interchange，美国信息互换标准代码）。世界上所有的计算机都用同样的ASCII方案来保存英文文字。"></a>二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数,于是规定计算机最小的单位：byte(字节) = 8bit(位)， 1字节可以组合出 256 种状态。如果这 256中状态每一个都对应一个符号，就能通过1字节的数据表示 256个字符，于是美国人民把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10,终端就换行，遇上0x07,终端就向人们嘟嘟叫，例好遇上0x1b,打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，<em>于是就把这些0x20以下的字节状态称为”控制码”</em>。又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。这个方案叫做ANSI的<strong>ASCII</strong>编码（American Standard Code for Information Interchange，美国信息互换标准代码）。世界上所有的计算机都用同样的ASCII方案来保存英文文字。</h3></li>
+<li><h3 id="后来计算机遍布全世界，中文的编码问题出现了，ASCII编码解决了英文的编码问题，英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的（从0000000到11111111），于是中国人民搞了一个自己的编码集GBK。这样哪行，湾湾人民也不服输，搞了个BIG5编码集。这下就很麻烦了，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号，如果用不同的编码方式打开的话就会乱码。"><a href="#后来计算机遍布全世界，中文的编码问题出现了，ASCII编码解决了英文的编码问题，英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的（从0000000到11111111），于是中国人民搞了一个自己的编码集GBK。这样哪行，湾湾人民也不服输，搞了个BIG5编码集。这下就很麻烦了，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号，如果用不同的编码方式打开的话就会乱码。" class="headerlink" title="后来计算机遍布全世界，中文的编码问题出现了，ASCII编码解决了英文的编码问题，英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的（从0000000到11111111），于是中国人民搞了一个自己的编码集GBK。这样哪行，湾湾人民也不服输，搞了个BIG5编码集。这下就很麻烦了，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号，如果用不同的编码方式打开的话就会乱码。"></a>后来计算机遍布全世界，中文的编码问题出现了，ASCII编码解决了英文的编码问题，英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的（从0000000到11111111），于是中国人民搞了一个自己的编码集<strong>GBK</strong>。这样哪行，湾湾人民也不服输，搞了个<strong>BIG5</strong>编码集。这下就很麻烦了，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号，如果用不同的编码方式打开的话就会乱码。</h3></li>
+<li><h3 id="没有一个武林盟主统一，大家自然是谁也不听谁的，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失，终于一个叫ISO（国际标准化组织）的国际组织决定着手解决这个问题。他们采用的方法很简单：废了所有的地区性编码方案，重新搞一个包括了地球上所有文化、所有字母和符号的编码！他们打算叫它”Universal-Multiple-Octet-Coded-Character-Set”，简称-UCS-俗称-“UNICODE”。"><a href="#没有一个武林盟主统一，大家自然是谁也不听谁的，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失，终于一个叫ISO（国际标准化组织）的国际组织决定着手解决这个问题。他们采用的方法很简单：废了所有的地区性编码方案，重新搞一个包括了地球上所有文化、所有字母和符号的编码！他们打算叫它”Universal-Multiple-Octet-Coded-Character-Set”，简称-UCS-俗称-“UNICODE”。" class="headerlink" title="没有一个武林盟主统一，大家自然是谁也不听谁的，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失，终于一个叫ISO（国际标准化组织）的国际组织决定着手解决这个问题。他们采用的方法很简单：废了所有的地区性编码方案，重新搞一个包括了地球上所有文化、所有字母和符号的编码！他们打算叫它”Universal Multiple-Octet Coded Character Set”，简称 UCS, 俗称 “UNICODE”。"></a>没有一个武林盟主统一，大家自然是谁也不听谁的，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失，终于一个叫<strong>ISO</strong>（国际标准化组织）的国际组织决定着手解决这个问题。他们采用的方法很简单：废了所有的地区性编码方案，重新搞一个包括了地球上所有文化、所有字母和符号的编码！他们打算叫它”Universal Multiple-Octet Coded Character Set”，简称 UCS, 俗称 <strong>“UNICODE”</strong>。</h3></li>
+<li><h3 id="UNICODE编码-开始制订时，计算机的存储器容量极大地发展了，空间再也不成为问题了。于是ISO就直接规定必须用两个字节（也就是16位）来统一表示所有的字符，也就是用两个字节来表示为一个字符，他总共可以组合出65535不同的字符，这大概已经可以覆盖世界上所有文化的符号，而对于ASCII里的那些”半角”字符，UNICODE包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。"><a href="#UNICODE编码-开始制订时，计算机的存储器容量极大地发展了，空间再也不成为问题了。于是ISO就直接规定必须用两个字节（也就是16位）来统一表示所有的字符，也就是用两个字节来表示为一个字符，他总共可以组合出65535不同的字符，这大概已经可以覆盖世界上所有文化的符号，而对于ASCII里的那些”半角”字符，UNICODE包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。" class="headerlink" title="UNICODE编码 开始制订时，计算机的存储器容量极大地发展了，空间再也不成为问题了。于是ISO就直接规定必须用两个字节（也就是16位）来统一表示所有的字符，也就是用两个字节来表示为一个字符，他总共可以组合出65535不同的字符，这大概已经可以覆盖世界上所有文化的符号，而对于ASCII里的那些”半角”字符，UNICODE包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。"></a>UNICODE编码 开始制订时，计算机的存储器容量极大地发展了，空间再也不成为问题了。于是ISO就直接规定必须用<strong>两个字节（也就是16位）</strong>来统一表示所有的字符，也就是用两个字节来表示为一个字符，他总共可以组合出<strong>65535</strong>不同的字符，这大概已经可以覆盖世界上所有文化的符号，而对于ASCII里的那些”半角”字符，UNICODE包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。</h3></li>
+<li><h3 id="Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。比如，汉字”严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。"><a href="#Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。比如，汉字”严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。" class="headerlink" title="Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。比如，汉字”严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。"></a>Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。比如，汉字”严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。</h3></li>
+<li><h3 id="UTF-8字符集"><a href="#UTF-8字符集" class="headerlink" title="UTF-8字符集"></a><strong>UTF-8字符集</strong></h3><p>互联网的普及，强烈要求出现一种统一的编码方式。UTF-8就是在互联网上使用最广的一种Unicode的实现方式。其他实现方式还包括UTF-16（字符用两个字节或四个字节表示）和UTF-32（字符用四个字节表示），不过在互联网上基本不用。这里的关系是，UTF-8是Unicode的实现方式之一。<br>UTF-8最大的一个特点，<strong>就是它是一种变长的编码方式</strong>。它可以使用<strong>1~4</strong>个字节表示一个符号，根据不同的符号而变化字节长度。UTF-8的编码规则很简单，只有两条：</p>
+</li>
+</ul>
+<ol>
+<li><h3 id="对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。"><a href="#对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。" class="headerlink" title="对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。"></a>对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。</h3></li>
+<li><h3 id="对于n字节的符号（n-gt-1），第一个字节的前n位都设为1，第n-1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。"><a href="#对于n字节的符号（n-gt-1），第一个字节的前n位都设为1，第n-1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。" class="headerlink" title="对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。"></a>对于n字节的符号（n&gt;1），第一个字节的前n位都设为1，第n+1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。</h3><p>这样既解决了乱码问题，又合理的利用了存储。</p>
+</li>
+</ol>
+<ul>
+<li><h3 id="非字符数据的编码问题"><a href="#非字符数据的编码问题" class="headerlink" title="非字符数据的编码问题"></a>非字符数据的编码问题</h3></li>
+<li>对于可显示的字符，人类已经有了非常多的编码方式和字符集来对应显示，但是对于图片，视频这类非字符数据，字符集都会有乱码问题（不是所有二进制编码都有对应的可显示字符，只有二进制是字符才能正常显示），那么我们可以转为16进制，使用Base64编码进行保存。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/13/计算机基本原理/" rel="next" title="计算机基本原理">
+                <i class="fa fa-chevron-left"></i> 计算机基本原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">April</p>
+              <p class="site-description motion-element" itemprop="description">温柔只给意中人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符集与进制"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5B57;&#x7B26;&#x96C6;&#x4E0E;&#x8FDB;&#x5236;" class="headerlink" title="&#x5B57;&#x7B26;&#x96C6;&#x4E0E;&#x8FDB;&#x5236;"></a>&#x5B57;&#x7B26;&#x96C6;&#x4E0E;&#x8FDB;&#x5236;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机底层是二进制的机器码，那么人类的语言文字如何能”翻译”成计算的能执行的二进制呢？"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x8BA1;&#x7B97;&#x673A;&#x5E95;&#x5C42;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x673A;&#x5668;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x4EBA;&#x7C7B;&#x7684;&#x8BED;&#x8A00;&#x6587;&#x5B57;&#x5982;&#x4F55;&#x80FD;&#x201D;&#x7FFB;&#x8BD1;&#x201D;&#x6210;&#x8BA1;&#x7B97;&#x7684;&#x80FD;&#x6267;&#x884C;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x5462;&#xFF1F;" class="headerlink" title="&#x8BA1;&#x7B97;&#x673A;&#x5E95;&#x5C42;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x673A;&#x5668;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x4EBA;&#x7C7B;&#x7684;&#x8BED;&#x8A00;&#x6587;&#x5B57;&#x5982;&#x4F55;&#x80FD;&#x201D;&#x7FFB;&#x8BD1;&#x201D;&#x6210;&#x8BA1;&#x7B97;&#x7684;&#x80FD;&#x6267;&#x884C;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x5462;&#xFF1F;"></a>&#x8BA1;&#x7B97;&#x673A;&#x5E95;&#x5C42;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x673A;&#x5668;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x4EBA;&#x7C7B;&#x7684;&#x8BED;&#x8A00;&#x6587;&#x5B57;&#x5982;&#x4F55;&#x80FD;&#x201D;&#x7FFB;&#x8BD1;&#x201D;&#x6210;&#x8BA1;&#x7B97;&#x7684;&#x80FD;&#x6267;&#x884C;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x5462;&#xFF1F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制可以看作是主观的高低势的电平，为了让自然语言中的各个符号例如abcd，0123，和标点符号之类的字符能让计算机处理，就必须建立这么一个标准码来”翻译”成计算机能识别的二进制数-于是规定计算机最小的单位：byte-字节-8bit-位-，-1字节可以组合出-256-种状态。如果这-256中状态每一个都对应一个符号，就能通过1字节的数据表示-256个字符，于是美国人民把其中的编号从0开始的32种状态分别规定了特殊的用途，一但终端、打印机遇上约定好的这些字节被传过来时，就要做一些约定的动作。遇上00x10-终端就换行，遇上0x07-终端就向人们嘟嘟叫，例好遇上0x1b-打印机就打印反白的字，或者终端就用彩色显示字母。他们看到这样很好，于是就把这些0x20以下的字节状态称为”控制码”。又把所有的空格、标点符号、数字、大小写字母分别用连续的字节状态表示，一直编到了第127号，这样计算机就可以用不同字节来存储英语的文字了。这个方案叫做ANSI的ASCII编码（American-Standard-Code-for-Information-Interchange，美国信息互换标准代码）。世界上所有的计算机都用同样的ASCII方案来保存英文文字。"><span class="nav-number">1.0.2.</span> <span class="nav-text"><a href="#&#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F;&#x4E3B;&#x89C2;&#x7684;&#x9AD8;&#x4F4E;&#x52BF;&#x7684;&#x7535;&#x5E73;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x5404;&#x4E2A;&#x7B26;&#x53F7;&#x4F8B;&#x5982;abcd&#xFF0C;0123&#xFF0C;&#x548C;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x4E4B;&#x7C7B;&#x7684;&#x5B57;&#x7B26;&#x80FD;&#x8BA9;&#x8BA1;&#x7B97;&#x673A;&#x5904;&#x7406;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x5EFA;&#x7ACB;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7801;&#x6765;&#x201D;&#x7FFB;&#x8BD1;&#x201D;&#x6210;&#x8BA1;&#x7B97;&#x673A;&#x80FD;&#x8BC6;&#x522B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6570;-&#x4E8E;&#x662F;&#x89C4;&#x5B9A;&#x8BA1;&#x7B97;&#x673A;&#x6700;&#x5C0F;&#x7684;&#x5355;&#x4F4D;&#xFF1A;byte-&#x5B57;&#x8282;-8bit-&#x4F4D;-&#xFF0C;-1&#x5B57;&#x8282;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x51FA;-256-&#x79CD;&#x72B6;&#x6001;&#x3002;&#x5982;&#x679C;&#x8FD9;-256&#x4E2D;&#x72B6;&#x6001;&#x6BCF;&#x4E00;&#x4E2A;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x5C31;&#x80FD;&#x901A;&#x8FC7;1&#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;&#x8868;&#x793A;-256&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E8E;&#x662F;&#x7F8E;&#x56FD;&#x4EBA;&#x6C11;&#x628A;&#x5176;&#x4E2D;&#x7684;&#x7F16;&#x53F7;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;32&#x79CD;&#x72B6;&#x6001;&#x5206;&#x522B;&#x89C4;&#x5B9A;&#x4E86;&#x7279;&#x6B8A;&#x7684;&#x7528;&#x9014;&#xFF0C;&#x4E00;&#x4F46;&#x7EC8;&#x7AEF;&#x3001;&#x6253;&#x5370;&#x673A;&#x9047;&#x4E0A;&#x7EA6;&#x5B9A;&#x597D;&#x7684;&#x8FD9;&#x4E9B;&#x5B57;&#x8282;&#x88AB;&#x4F20;&#x8FC7;&#x6765;&#x65F6;&#xFF0C;&#x5C31;&#x8981;&#x505A;&#x4E00;&#x4E9B;&#x7EA6;&#x5B9A;&#x7684;&#x52A8;&#x4F5C;&#x3002;&#x9047;&#x4E0A;00x10-&#x7EC8;&#x7AEF;&#x5C31;&#x6362;&#x884C;&#xFF0C;&#x9047;&#x4E0A;0x07-&#x7EC8;&#x7AEF;&#x5C31;&#x5411;&#x4EBA;&#x4EEC;&#x561F;&#x561F;&#x53EB;&#xFF0C;&#x4F8B;&#x597D;&#x9047;&#x4E0A;0x1b-&#x6253;&#x5370;&#x673A;&#x5C31;&#x6253;&#x5370;&#x53CD;&#x767D;&#x7684;&#x5B57;&#xFF0C;&#x6216;&#x8005;&#x7EC8;&#x7AEF;&#x5C31;&#x7528;&#x5F69;&#x8272;&#x663E;&#x793A;&#x5B57;&#x6BCD;&#x3002;&#x4ED6;&#x4EEC;&#x770B;&#x5230;&#x8FD9;&#x6837;&#x5F88;&#x597D;&#xFF0C;&#x4E8E;&#x662F;&#x5C31;&#x628A;&#x8FD9;&#x4E9B;0x20&#x4EE5;&#x4E0B;&#x7684;&#x5B57;&#x8282;&#x72B6;&#x6001;&#x79F0;&#x4E3A;&#x201D;&#x63A7;&#x5236;&#x7801;&#x201D;&#x3002;&#x53C8;&#x628A;&#x6240;&#x6709;&#x7684;&#x7A7A;&#x683C;&#x3001;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x3001;&#x6570;&#x5B57;&#x3001;&#x5927;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x5206;&#x522B;&#x7528;&#x8FDE;&#x7EED;&#x7684;&#x5B57;&#x8282;&#x72B6;&#x6001;&#x8868;&#x793A;&#xFF0C;&#x4E00;&#x76F4;&#x7F16;&#x5230;&#x4E86;&#x7B2C;127&#x53F7;&#xFF0C;&#x8FD9;&#x6837;&#x8BA1;&#x7B97;&#x673A;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x4E0D;&#x540C;&#x5B57;&#x8282;&#x6765;&#x5B58;&#x50A8;&#x82F1;&#x8BED;&#x7684;&#x6587;&#x5B57;&#x4E86;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x53EB;&#x505A;ANSI&#x7684;ASCII&#x7F16;&#x7801;&#xFF08;American-Standard-Code-for-Information-Interchange&#xFF0C;&#x7F8E;&#x56FD;&#x4FE1;&#x606F;&#x4E92;&#x6362;&#x6807;&#x51C6;&#x4EE3;&#x7801;&#xFF09;&#x3002;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x8BA1;&#x7B97;&#x673A;&#x90FD;&#x7528;&#x540C;&#x6837;&#x7684;ASCII&#x65B9;&#x6848;&#x6765;&#x4FDD;&#x5B58;&#x82F1;&#x6587;&#x6587;&#x5B57;&#x3002;" class="headerlink" title="&#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F;&#x4E3B;&#x89C2;&#x7684;&#x9AD8;&#x4F4E;&#x52BF;&#x7684;&#x7535;&#x5E73;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x5404;&#x4E2A;&#x7B26;&#x53F7;&#x4F8B;&#x5982;abcd&#xFF0C;0123&#xFF0C;&#x548C;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x4E4B;&#x7C7B;&#x7684;&#x5B57;&#x7B26;&#x80FD;&#x8BA9;&#x8BA1;&#x7B97;&#x673A;&#x5904;&#x7406;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x5EFA;&#x7ACB;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7801;&#x6765;&#x201D;&#x7FFB;&#x8BD1;&#x201D;&#x6210;&#x8BA1;&#x7B97;&#x673A;&#x80FD;&#x8BC6;&#x522B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6570;,&#x4E8E;&#x662F;&#x89C4;&#x5B9A;&#x8BA1;&#x7B97;&#x673A;&#x6700;&#x5C0F;&#x7684;&#x5355;&#x4F4D;&#xFF1A;byte(&#x5B57;&#x8282;) = 8bit(&#x4F4D;)&#xFF0C; 1&#x5B57;&#x8282;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x51FA; 256 &#x79CD;&#x72B6;&#x6001;&#x3002;&#x5982;&#x679C;&#x8FD9; 256&#x4E2D;&#x72B6;&#x6001;&#x6BCF;&#x4E00;&#x4E2A;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x5C31;&#x80FD;&#x901A;&#x8FC7;1&#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;&#x8868;&#x793A; 256&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E8E;&#x662F;&#x7F8E;&#x56FD;&#x4EBA;&#x6C11;&#x628A;&#x5176;&#x4E2D;&#x7684;&#x7F16;&#x53F7;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;32&#x79CD;&#x72B6;&#x6001;&#x5206;&#x522B;&#x89C4;&#x5B9A;&#x4E86;&#x7279;&#x6B8A;&#x7684;&#x7528;&#x9014;&#xFF0C;&#x4E00;&#x4F46;&#x7EC8;&#x7AEF;&#x3001;&#x6253;&#x5370;&#x673A;&#x9047;&#x4E0A;&#x7EA6;&#x5B9A;&#x597D;&#x7684;&#x8FD9;&#x4E9B;&#x5B57;&#x8282;&#x88AB;&#x4F20;&#x8FC7;&#x6765;&#x65F6;&#xFF0C;&#x5C31;&#x8981;&#x505A;&#x4E00;&#x4E9B;&#x7EA6;&#x5B9A;&#x7684;&#x52A8;&#x4F5C;&#x3002;&#x9047;&#x4E0A;00x10,&#x7EC8;&#x7AEF;&#x5C31;&#x6362;&#x884C;&#xFF0C;&#x9047;&#x4E0A;0x07,&#x7EC8;&#x7AEF;&#x5C31;&#x5411;&#x4EBA;&#x4EEC;&#x561F;&#x561F;&#x53EB;&#xFF0C;&#x4F8B;&#x597D;&#x9047;&#x4E0A;0x1b,&#x6253;&#x5370;&#x673A;&#x5C31;&#x6253;&#x5370;&#x53CD;&#x767D;&#x7684;&#x5B57;&#xFF0C;&#x6216;&#x8005;&#x7EC8;&#x7AEF;&#x5C31;&#x7528;&#x5F69;&#x8272;&#x663E;&#x793A;&#x5B57;&#x6BCD;&#x3002;&#x4ED6;&#x4EEC;&#x770B;&#x5230;&#x8FD9;&#x6837;&#x5F88;&#x597D;&#xFF0C;&#x4E8E;&#x662F;&#x5C31;&#x628A;&#x8FD9;&#x4E9B;0x20&#x4EE5;&#x4E0B;&#x7684;&#x5B57;&#x8282;&#x72B6;&#x6001;&#x79F0;&#x4E3A;&#x201D;&#x63A7;&#x5236;&#x7801;&#x201D;&#x3002;&#x53C8;&#x628A;&#x6240;&#x6709;&#x7684;&#x7A7A;&#x683C;&#x3001;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x3001;&#x6570;&#x5B57;&#x3001;&#x5927;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x5206;&#x522B;&#x7528;&#x8FDE;&#x7EED;&#x7684;&#x5B57;&#x8282;&#x72B6;&#x6001;&#x8868;&#x793A;&#xFF0C;&#x4E00;&#x76F4;&#x7F16;&#x5230;&#x4E86;&#x7B2C;127&#x53F7;&#xFF0C;&#x8FD9;&#x6837;&#x8BA1;&#x7B97;&#x673A;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x4E0D;&#x540C;&#x5B57;&#x8282;&#x6765;&#x5B58;&#x50A8;&#x82F1;&#x8BED;&#x7684;&#x6587;&#x5B57;&#x4E86;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x53EB;&#x505A;ANSI&#x7684;ASCII&#x7F16;&#x7801;&#xFF08;American Standard Code for Information Interchange&#xFF0C;&#x7F8E;&#x56FD;&#x4FE1;&#x606F;&#x4E92;&#x6362;&#x6807;&#x51C6;&#x4EE3;&#x7801;&#xFF09;&#x3002;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x8BA1;&#x7B97;&#x673A;&#x90FD;&#x7528;&#x540C;&#x6837;&#x7684;ASCII&#x65B9;&#x6848;&#x6765;&#x4FDD;&#x5B58;&#x82F1;&#x6587;&#x6587;&#x5B57;&#x3002;"></a>&#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x4EE5;&#x770B;&#x4F5C;&#x662F;&#x4E3B;&#x89C2;&#x7684;&#x9AD8;&#x4F4E;&#x52BF;&#x7684;&#x7535;&#x5E73;&#xFF0C;&#x4E3A;&#x4E86;&#x8BA9;&#x81EA;&#x7136;&#x8BED;&#x8A00;&#x4E2D;&#x7684;&#x5404;&#x4E2A;&#x7B26;&#x53F7;&#x4F8B;&#x5982;abcd&#xFF0C;0123&#xFF0C;&#x548C;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x4E4B;&#x7C7B;&#x7684;&#x5B57;&#x7B26;&#x80FD;&#x8BA9;&#x8BA1;&#x7B97;&#x673A;&#x5904;&#x7406;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x5EFA;&#x7ACB;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x6807;&#x51C6;&#x7801;&#x6765;&#x201D;&#x7FFB;&#x8BD1;&#x201D;&#x6210;&#x8BA1;&#x7B97;&#x673A;&#x80FD;&#x8BC6;&#x522B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6570;,&#x4E8E;&#x662F;&#x89C4;&#x5B9A;&#x8BA1;&#x7B97;&#x673A;&#x6700;&#x5C0F;&#x7684;&#x5355;&#x4F4D;&#xFF1A;byte(&#x5B57;&#x8282;) = 8bit(&#x4F4D;)&#xFF0C; 1&#x5B57;&#x8282;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x51FA; 256 &#x79CD;&#x72B6;&#x6001;&#x3002;&#x5982;&#x679C;&#x8FD9; 256&#x4E2D;&#x72B6;&#x6001;&#x6BCF;&#x4E00;&#x4E2A;&#x90FD;&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x5C31;&#x80FD;&#x901A;&#x8FC7;1&#x5B57;&#x8282;&#x7684;&#x6570;&#x636E;&#x8868;&#x793A; 256&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4E8E;&#x662F;&#x7F8E;&#x56FD;&#x4EBA;&#x6C11;&#x628A;&#x5176;&#x4E2D;&#x7684;&#x7F16;&#x53F7;&#x4ECE;0&#x5F00;&#x59CB;&#x7684;32&#x79CD;&#x72B6;&#x6001;&#x5206;&#x522B;&#x89C4;&#x5B9A;&#x4E86;&#x7279;&#x6B8A;&#x7684;&#x7528;&#x9014;&#xFF0C;&#x4E00;&#x4F46;&#x7EC8;&#x7AEF;&#x3001;&#x6253;&#x5370;&#x673A;&#x9047;&#x4E0A;&#x7EA6;&#x5B9A;&#x597D;&#x7684;&#x8FD9;&#x4E9B;&#x5B57;&#x8282;&#x88AB;&#x4F20;&#x8FC7;&#x6765;&#x65F6;&#xFF0C;&#x5C31;&#x8981;&#x505A;&#x4E00;&#x4E9B;&#x7EA6;&#x5B9A;&#x7684;&#x52A8;&#x4F5C;&#x3002;&#x9047;&#x4E0A;00x10,&#x7EC8;&#x7AEF;&#x5C31;&#x6362;&#x884C;&#xFF0C;&#x9047;&#x4E0A;0x07,&#x7EC8;&#x7AEF;&#x5C31;&#x5411;&#x4EBA;&#x4EEC;&#x561F;&#x561F;&#x53EB;&#xFF0C;&#x4F8B;&#x597D;&#x9047;&#x4E0A;0x1b,&#x6253;&#x5370;&#x673A;&#x5C31;&#x6253;&#x5370;&#x53CD;&#x767D;&#x7684;&#x5B57;&#xFF0C;&#x6216;&#x8005;&#x7EC8;&#x7AEF;&#x5C31;&#x7528;&#x5F69;&#x8272;&#x663E;&#x793A;&#x5B57;&#x6BCD;&#x3002;&#x4ED6;&#x4EEC;&#x770B;&#x5230;&#x8FD9;&#x6837;&#x5F88;&#x597D;&#xFF0C;<em>&#x4E8E;&#x662F;&#x5C31;&#x628A;&#x8FD9;&#x4E9B;0x20&#x4EE5;&#x4E0B;&#x7684;&#x5B57;&#x8282;&#x72B6;&#x6001;&#x79F0;&#x4E3A;&#x201D;&#x63A7;&#x5236;&#x7801;&#x201D;</em>&#x3002;&#x53C8;&#x628A;&#x6240;&#x6709;&#x7684;&#x7A7A;&#x683C;&#x3001;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x3001;&#x6570;&#x5B57;&#x3001;&#x5927;&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x5206;&#x522B;&#x7528;&#x8FDE;&#x7EED;&#x7684;&#x5B57;&#x8282;&#x72B6;&#x6001;&#x8868;&#x793A;&#xFF0C;&#x4E00;&#x76F4;&#x7F16;&#x5230;&#x4E86;&#x7B2C;127&#x53F7;&#xFF0C;&#x8FD9;&#x6837;&#x8BA1;&#x7B97;&#x673A;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x4E0D;&#x540C;&#x5B57;&#x8282;&#x6765;&#x5B58;&#x50A8;&#x82F1;&#x8BED;&#x7684;&#x6587;&#x5B57;&#x4E86;&#x3002;&#x8FD9;&#x4E2A;&#x65B9;&#x6848;&#x53EB;&#x505A;ANSI&#x7684;<strong>ASCII</strong>&#x7F16;&#x7801;&#xFF08;American Standard Code for Information Interchange&#xFF0C;&#x7F8E;&#x56FD;&#x4FE1;&#x606F;&#x4E92;&#x6362;&#x6807;&#x51C6;&#x4EE3;&#x7801;&#xFF09;&#x3002;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x8BA1;&#x7B97;&#x673A;&#x90FD;&#x7528;&#x540C;&#x6837;&#x7684;ASCII&#x65B9;&#x6848;&#x6765;&#x4FDD;&#x5B58;&#x82F1;&#x6587;&#x6587;&#x5B57;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后来计算机遍布全世界，中文的编码问题出现了，ASCII编码解决了英文的编码问题，英语用128个符号编码就够了，但是用来表示其他语言，128个符号是不够的（从0000000到11111111），于是中国人民搞了一个自己的编码集GBK。这样哪行，湾湾人民也不服输，搞了个BIG5编码集。这下就很麻烦了，世界上存在着多种编码方式，同一个二进制数字可以被解释成不同的符号，如果用不同的编码方式打开的话就会乱码。"><span class="nav-number">1.0.3.</span> <span class="nav-text"><a href="#&#x540E;&#x6765;&#x8BA1;&#x7B97;&#x673A;&#x904D;&#x5E03;&#x5168;&#x4E16;&#x754C;&#xFF0C;&#x4E2D;&#x6587;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;&#x51FA;&#x73B0;&#x4E86;&#xFF0C;ASCII&#x7F16;&#x7801;&#x89E3;&#x51B3;&#x4E86;&#x82F1;&#x6587;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;&#xFF0C;&#x82F1;&#x8BED;&#x7528;128&#x4E2A;&#x7B26;&#x53F7;&#x7F16;&#x7801;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x7528;&#x6765;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#xFF0C;128&#x4E2A;&#x7B26;&#x53F7;&#x662F;&#x4E0D;&#x591F;&#x7684;&#xFF08;&#x4ECE;0000000&#x5230;11111111&#xFF09;&#xFF0C;&#x4E8E;&#x662F;&#x4E2D;&#x56FD;&#x4EBA;&#x6C11;&#x641E;&#x4E86;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7684;&#x7F16;&#x7801;&#x96C6;GBK&#x3002;&#x8FD9;&#x6837;&#x54EA;&#x884C;&#xFF0C;&#x6E7E;&#x6E7E;&#x4EBA;&#x6C11;&#x4E5F;&#x4E0D;&#x670D;&#x8F93;&#xFF0C;&#x641E;&#x4E86;&#x4E2A;BIG5&#x7F16;&#x7801;&#x96C6;&#x3002;&#x8FD9;&#x4E0B;&#x5C31;&#x5F88;&#x9EBB;&#x70E6;&#x4E86;&#xFF0C;&#x4E16;&#x754C;&#x4E0A;&#x5B58;&#x5728;&#x7740;&#x591A;&#x79CD;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#xFF0C;&#x540C;&#x4E00;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x5B57;&#x53EF;&#x4EE5;&#x88AB;&#x89E3;&#x91CA;&#x6210;&#x4E0D;&#x540C;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x6253;&#x5F00;&#x7684;&#x8BDD;&#x5C31;&#x4F1A;&#x4E71;&#x7801;&#x3002;" class="headerlink" title="&#x540E;&#x6765;&#x8BA1;&#x7B97;&#x673A;&#x904D;&#x5E03;&#x5168;&#x4E16;&#x754C;&#xFF0C;&#x4E2D;&#x6587;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;&#x51FA;&#x73B0;&#x4E86;&#xFF0C;ASCII&#x7F16;&#x7801;&#x89E3;&#x51B3;&#x4E86;&#x82F1;&#x6587;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;&#xFF0C;&#x82F1;&#x8BED;&#x7528;128&#x4E2A;&#x7B26;&#x53F7;&#x7F16;&#x7801;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x7528;&#x6765;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#xFF0C;128&#x4E2A;&#x7B26;&#x53F7;&#x662F;&#x4E0D;&#x591F;&#x7684;&#xFF08;&#x4ECE;0000000&#x5230;11111111&#xFF09;&#xFF0C;&#x4E8E;&#x662F;&#x4E2D;&#x56FD;&#x4EBA;&#x6C11;&#x641E;&#x4E86;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7684;&#x7F16;&#x7801;&#x96C6;GBK&#x3002;&#x8FD9;&#x6837;&#x54EA;&#x884C;&#xFF0C;&#x6E7E;&#x6E7E;&#x4EBA;&#x6C11;&#x4E5F;&#x4E0D;&#x670D;&#x8F93;&#xFF0C;&#x641E;&#x4E86;&#x4E2A;BIG5&#x7F16;&#x7801;&#x96C6;&#x3002;&#x8FD9;&#x4E0B;&#x5C31;&#x5F88;&#x9EBB;&#x70E6;&#x4E86;&#xFF0C;&#x4E16;&#x754C;&#x4E0A;&#x5B58;&#x5728;&#x7740;&#x591A;&#x79CD;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#xFF0C;&#x540C;&#x4E00;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x5B57;&#x53EF;&#x4EE5;&#x88AB;&#x89E3;&#x91CA;&#x6210;&#x4E0D;&#x540C;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x6253;&#x5F00;&#x7684;&#x8BDD;&#x5C31;&#x4F1A;&#x4E71;&#x7801;&#x3002;"></a>&#x540E;&#x6765;&#x8BA1;&#x7B97;&#x673A;&#x904D;&#x5E03;&#x5168;&#x4E16;&#x754C;&#xFF0C;&#x4E2D;&#x6587;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;&#x51FA;&#x73B0;&#x4E86;&#xFF0C;ASCII&#x7F16;&#x7801;&#x89E3;&#x51B3;&#x4E86;&#x82F1;&#x6587;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;&#xFF0C;&#x82F1;&#x8BED;&#x7528;128&#x4E2A;&#x7B26;&#x53F7;&#x7F16;&#x7801;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x4F46;&#x662F;&#x7528;&#x6765;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x8BED;&#x8A00;&#xFF0C;128&#x4E2A;&#x7B26;&#x53F7;&#x662F;&#x4E0D;&#x591F;&#x7684;&#xFF08;&#x4ECE;0000000&#x5230;11111111&#xFF09;&#xFF0C;&#x4E8E;&#x662F;&#x4E2D;&#x56FD;&#x4EBA;&#x6C11;&#x641E;&#x4E86;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x7684;&#x7F16;&#x7801;&#x96C6;<strong>GBK</strong>&#x3002;&#x8FD9;&#x6837;&#x54EA;&#x884C;&#xFF0C;&#x6E7E;&#x6E7E;&#x4EBA;&#x6C11;&#x4E5F;&#x4E0D;&#x670D;&#x8F93;&#xFF0C;&#x641E;&#x4E86;&#x4E2A;<strong>BIG5</strong>&#x7F16;&#x7801;&#x96C6;&#x3002;&#x8FD9;&#x4E0B;&#x5C31;&#x5F88;&#x9EBB;&#x70E6;&#x4E86;&#xFF0C;&#x4E16;&#x754C;&#x4E0A;&#x5B58;&#x5728;&#x7740;&#x591A;&#x79CD;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#xFF0C;&#x540C;&#x4E00;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x5B57;&#x53EF;&#x4EE5;&#x88AB;&#x89E3;&#x91CA;&#x6210;&#x4E0D;&#x540C;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x5982;&#x679C;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7F16;&#x7801;&#x65B9;&#x5F0F;&#x6253;&#x5F00;&#x7684;&#x8BDD;&#x5C31;&#x4F1A;&#x4E71;&#x7801;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#没有一个武林盟主统一，大家自然是谁也不听谁的，如果有一种编码，将世界上所有的符号都纳入其中。每一个符号都给予一个独一无二的编码，那么乱码问题就会消失，终于一个叫ISO（国际标准化组织）的国际组织决定着手解决这个问题。他们采用的方法很简单：废了所有的地区性编码方案，重新搞一个包括了地球上所有文化、所有字母和符号的编码！他们打算叫它”Universal-Multiple-Octet-Coded-Character-Set”，简称-UCS-俗称-“UNICODE”。"><span class="nav-number">1.0.4.</span> <span class="nav-text"><a href="#&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x6B66;&#x6797;&#x76DF;&#x4E3B;&#x7EDF;&#x4E00;&#xFF0C;&#x5927;&#x5BB6;&#x81EA;&#x7136;&#x662F;&#x8C01;&#x4E5F;&#x4E0D;&#x542C;&#x8C01;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x79CD;&#x7F16;&#x7801;&#xFF0C;&#x5C06;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x7B26;&#x53F7;&#x90FD;&#x7EB3;&#x5165;&#x5176;&#x4E2D;&#x3002;&#x6BCF;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x90FD;&#x7ED9;&#x4E88;&#x4E00;&#x4E2A;&#x72EC;&#x4E00;&#x65E0;&#x4E8C;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x4E71;&#x7801;&#x95EE;&#x9898;&#x5C31;&#x4F1A;&#x6D88;&#x5931;&#xFF0C;&#x7EC8;&#x4E8E;&#x4E00;&#x4E2A;&#x53EB;ISO&#xFF08;&#x56FD;&#x9645;&#x6807;&#x51C6;&#x5316;&#x7EC4;&#x7EC7;&#xFF09;&#x7684;&#x56FD;&#x9645;&#x7EC4;&#x7EC7;&#x51B3;&#x5B9A;&#x7740;&#x624B;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x4ED6;&#x4EEC;&#x91C7;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x5F88;&#x7B80;&#x5355;&#xFF1A;&#x5E9F;&#x4E86;&#x6240;&#x6709;&#x7684;&#x5730;&#x533A;&#x6027;&#x7F16;&#x7801;&#x65B9;&#x6848;&#xFF0C;&#x91CD;&#x65B0;&#x641E;&#x4E00;&#x4E2A;&#x5305;&#x62EC;&#x4E86;&#x5730;&#x7403;&#x4E0A;&#x6240;&#x6709;&#x6587;&#x5316;&#x3001;&#x6240;&#x6709;&#x5B57;&#x6BCD;&#x548C;&#x7B26;&#x53F7;&#x7684;&#x7F16;&#x7801;&#xFF01;&#x4ED6;&#x4EEC;&#x6253;&#x7B97;&#x53EB;&#x5B83;&#x201D;Universal-Multiple-Octet-Coded-Character-Set&#x201D;&#xFF0C;&#x7B80;&#x79F0;-UCS-&#x4FD7;&#x79F0;-&#x201C;UNICODE&#x201D;&#x3002;" class="headerlink" title="&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x6B66;&#x6797;&#x76DF;&#x4E3B;&#x7EDF;&#x4E00;&#xFF0C;&#x5927;&#x5BB6;&#x81EA;&#x7136;&#x662F;&#x8C01;&#x4E5F;&#x4E0D;&#x542C;&#x8C01;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x79CD;&#x7F16;&#x7801;&#xFF0C;&#x5C06;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x7B26;&#x53F7;&#x90FD;&#x7EB3;&#x5165;&#x5176;&#x4E2D;&#x3002;&#x6BCF;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x90FD;&#x7ED9;&#x4E88;&#x4E00;&#x4E2A;&#x72EC;&#x4E00;&#x65E0;&#x4E8C;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x4E71;&#x7801;&#x95EE;&#x9898;&#x5C31;&#x4F1A;&#x6D88;&#x5931;&#xFF0C;&#x7EC8;&#x4E8E;&#x4E00;&#x4E2A;&#x53EB;ISO&#xFF08;&#x56FD;&#x9645;&#x6807;&#x51C6;&#x5316;&#x7EC4;&#x7EC7;&#xFF09;&#x7684;&#x56FD;&#x9645;&#x7EC4;&#x7EC7;&#x51B3;&#x5B9A;&#x7740;&#x624B;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x4ED6;&#x4EEC;&#x91C7;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x5F88;&#x7B80;&#x5355;&#xFF1A;&#x5E9F;&#x4E86;&#x6240;&#x6709;&#x7684;&#x5730;&#x533A;&#x6027;&#x7F16;&#x7801;&#x65B9;&#x6848;&#xFF0C;&#x91CD;&#x65B0;&#x641E;&#x4E00;&#x4E2A;&#x5305;&#x62EC;&#x4E86;&#x5730;&#x7403;&#x4E0A;&#x6240;&#x6709;&#x6587;&#x5316;&#x3001;&#x6240;&#x6709;&#x5B57;&#x6BCD;&#x548C;&#x7B26;&#x53F7;&#x7684;&#x7F16;&#x7801;&#xFF01;&#x4ED6;&#x4EEC;&#x6253;&#x7B97;&#x53EB;&#x5B83;&#x201D;Universal Multiple-Octet Coded Character Set&#x201D;&#xFF0C;&#x7B80;&#x79F0; UCS, &#x4FD7;&#x79F0; &#x201C;UNICODE&#x201D;&#x3002;"></a>&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x6B66;&#x6797;&#x76DF;&#x4E3B;&#x7EDF;&#x4E00;&#xFF0C;&#x5927;&#x5BB6;&#x81EA;&#x7136;&#x662F;&#x8C01;&#x4E5F;&#x4E0D;&#x542C;&#x8C01;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x4E00;&#x79CD;&#x7F16;&#x7801;&#xFF0C;&#x5C06;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x7684;&#x7B26;&#x53F7;&#x90FD;&#x7EB3;&#x5165;&#x5176;&#x4E2D;&#x3002;&#x6BCF;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x90FD;&#x7ED9;&#x4E88;&#x4E00;&#x4E2A;&#x72EC;&#x4E00;&#x65E0;&#x4E8C;&#x7684;&#x7F16;&#x7801;&#xFF0C;&#x90A3;&#x4E48;&#x4E71;&#x7801;&#x95EE;&#x9898;&#x5C31;&#x4F1A;&#x6D88;&#x5931;&#xFF0C;&#x7EC8;&#x4E8E;&#x4E00;&#x4E2A;&#x53EB;<strong>ISO</strong>&#xFF08;&#x56FD;&#x9645;&#x6807;&#x51C6;&#x5316;&#x7EC4;&#x7EC7;&#xFF09;&#x7684;&#x56FD;&#x9645;&#x7EC4;&#x7EC7;&#x51B3;&#x5B9A;&#x7740;&#x624B;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;&#x4ED6;&#x4EEC;&#x91C7;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x5F88;&#x7B80;&#x5355;&#xFF1A;&#x5E9F;&#x4E86;&#x6240;&#x6709;&#x7684;&#x5730;&#x533A;&#x6027;&#x7F16;&#x7801;&#x65B9;&#x6848;&#xFF0C;&#x91CD;&#x65B0;&#x641E;&#x4E00;&#x4E2A;&#x5305;&#x62EC;&#x4E86;&#x5730;&#x7403;&#x4E0A;&#x6240;&#x6709;&#x6587;&#x5316;&#x3001;&#x6240;&#x6709;&#x5B57;&#x6BCD;&#x548C;&#x7B26;&#x53F7;&#x7684;&#x7F16;&#x7801;&#xFF01;&#x4ED6;&#x4EEC;&#x6253;&#x7B97;&#x53EB;&#x5B83;&#x201D;Universal Multiple-Octet Coded Character Set&#x201D;&#xFF0C;&#x7B80;&#x79F0; UCS, &#x4FD7;&#x79F0; <strong>&#x201C;UNICODE&#x201D;</strong>&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UNICODE编码-开始制订时，计算机的存储器容量极大地发展了，空间再也不成为问题了。于是ISO就直接规定必须用两个字节（也就是16位）来统一表示所有的字符，也就是用两个字节来表示为一个字符，他总共可以组合出65535不同的字符，这大概已经可以覆盖世界上所有文化的符号，而对于ASCII里的那些”半角”字符，UNICODE包持其原编码不变，只是将其长度由原来的8位扩展为16位，而其他文化和语言的字符则全部重新统一编码。由于”半角”英文符号只需要用到低8位，所以其高8位永远是0，因此这种大气的方案在保存英文文本时会多浪费一倍的空间。"><span class="nav-number">1.0.5.</span> <span class="nav-text"><a href="#UNICODE&#x7F16;&#x7801;-&#x5F00;&#x59CB;&#x5236;&#x8BA2;&#x65F6;&#xFF0C;&#x8BA1;&#x7B97;&#x673A;&#x7684;&#x5B58;&#x50A8;&#x5668;&#x5BB9;&#x91CF;&#x6781;&#x5927;&#x5730;&#x53D1;&#x5C55;&#x4E86;&#xFF0C;&#x7A7A;&#x95F4;&#x518D;&#x4E5F;&#x4E0D;&#x6210;&#x4E3A;&#x95EE;&#x9898;&#x4E86;&#x3002;&#x4E8E;&#x662F;ISO&#x5C31;&#x76F4;&#x63A5;&#x89C4;&#x5B9A;&#x5FC5;&#x987B;&#x7528;&#x4E24;&#x4E2A;&#x5B57;&#x8282;&#xFF08;&#x4E5F;&#x5C31;&#x662F;16&#x4F4D;&#xFF09;&#x6765;&#x7EDF;&#x4E00;&#x8868;&#x793A;&#x6240;&#x6709;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x7528;&#x4E24;&#x4E2A;&#x5B57;&#x8282;&#x6765;&#x8868;&#x793A;&#x4E3A;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4ED6;&#x603B;&#x5171;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x51FA;65535&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x8FD9;&#x5927;&#x6982;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x6587;&#x5316;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x800C;&#x5BF9;&#x4E8E;ASCII&#x91CC;&#x7684;&#x90A3;&#x4E9B;&#x201D;&#x534A;&#x89D2;&#x201D;&#x5B57;&#x7B26;&#xFF0C;UNICODE&#x5305;&#x6301;&#x5176;&#x539F;&#x7F16;&#x7801;&#x4E0D;&#x53D8;&#xFF0C;&#x53EA;&#x662F;&#x5C06;&#x5176;&#x957F;&#x5EA6;&#x7531;&#x539F;&#x6765;&#x7684;8&#x4F4D;&#x6269;&#x5C55;&#x4E3A;16&#x4F4D;&#xFF0C;&#x800C;&#x5176;&#x4ED6;&#x6587;&#x5316;&#x548C;&#x8BED;&#x8A00;&#x7684;&#x5B57;&#x7B26;&#x5219;&#x5168;&#x90E8;&#x91CD;&#x65B0;&#x7EDF;&#x4E00;&#x7F16;&#x7801;&#x3002;&#x7531;&#x4E8E;&#x201D;&#x534A;&#x89D2;&#x201D;&#x82F1;&#x6587;&#x7B26;&#x53F7;&#x53EA;&#x9700;&#x8981;&#x7528;&#x5230;&#x4F4E;8&#x4F4D;&#xFF0C;&#x6240;&#x4EE5;&#x5176;&#x9AD8;8&#x4F4D;&#x6C38;&#x8FDC;&#x662F;0&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x79CD;&#x5927;&#x6C14;&#x7684;&#x65B9;&#x6848;&#x5728;&#x4FDD;&#x5B58;&#x82F1;&#x6587;&#x6587;&#x672C;&#x65F6;&#x4F1A;&#x591A;&#x6D6A;&#x8D39;&#x4E00;&#x500D;&#x7684;&#x7A7A;&#x95F4;&#x3002;" class="headerlink" title="UNICODE&#x7F16;&#x7801; &#x5F00;&#x59CB;&#x5236;&#x8BA2;&#x65F6;&#xFF0C;&#x8BA1;&#x7B97;&#x673A;&#x7684;&#x5B58;&#x50A8;&#x5668;&#x5BB9;&#x91CF;&#x6781;&#x5927;&#x5730;&#x53D1;&#x5C55;&#x4E86;&#xFF0C;&#x7A7A;&#x95F4;&#x518D;&#x4E5F;&#x4E0D;&#x6210;&#x4E3A;&#x95EE;&#x9898;&#x4E86;&#x3002;&#x4E8E;&#x662F;ISO&#x5C31;&#x76F4;&#x63A5;&#x89C4;&#x5B9A;&#x5FC5;&#x987B;&#x7528;&#x4E24;&#x4E2A;&#x5B57;&#x8282;&#xFF08;&#x4E5F;&#x5C31;&#x662F;16&#x4F4D;&#xFF09;&#x6765;&#x7EDF;&#x4E00;&#x8868;&#x793A;&#x6240;&#x6709;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x7528;&#x4E24;&#x4E2A;&#x5B57;&#x8282;&#x6765;&#x8868;&#x793A;&#x4E3A;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4ED6;&#x603B;&#x5171;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x51FA;65535&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x8FD9;&#x5927;&#x6982;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x6587;&#x5316;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x800C;&#x5BF9;&#x4E8E;ASCII&#x91CC;&#x7684;&#x90A3;&#x4E9B;&#x201D;&#x534A;&#x89D2;&#x201D;&#x5B57;&#x7B26;&#xFF0C;UNICODE&#x5305;&#x6301;&#x5176;&#x539F;&#x7F16;&#x7801;&#x4E0D;&#x53D8;&#xFF0C;&#x53EA;&#x662F;&#x5C06;&#x5176;&#x957F;&#x5EA6;&#x7531;&#x539F;&#x6765;&#x7684;8&#x4F4D;&#x6269;&#x5C55;&#x4E3A;16&#x4F4D;&#xFF0C;&#x800C;&#x5176;&#x4ED6;&#x6587;&#x5316;&#x548C;&#x8BED;&#x8A00;&#x7684;&#x5B57;&#x7B26;&#x5219;&#x5168;&#x90E8;&#x91CD;&#x65B0;&#x7EDF;&#x4E00;&#x7F16;&#x7801;&#x3002;&#x7531;&#x4E8E;&#x201D;&#x534A;&#x89D2;&#x201D;&#x82F1;&#x6587;&#x7B26;&#x53F7;&#x53EA;&#x9700;&#x8981;&#x7528;&#x5230;&#x4F4E;8&#x4F4D;&#xFF0C;&#x6240;&#x4EE5;&#x5176;&#x9AD8;8&#x4F4D;&#x6C38;&#x8FDC;&#x662F;0&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x79CD;&#x5927;&#x6C14;&#x7684;&#x65B9;&#x6848;&#x5728;&#x4FDD;&#x5B58;&#x82F1;&#x6587;&#x6587;&#x672C;&#x65F6;&#x4F1A;&#x591A;&#x6D6A;&#x8D39;&#x4E00;&#x500D;&#x7684;&#x7A7A;&#x95F4;&#x3002;"></a>UNICODE&#x7F16;&#x7801; &#x5F00;&#x59CB;&#x5236;&#x8BA2;&#x65F6;&#xFF0C;&#x8BA1;&#x7B97;&#x673A;&#x7684;&#x5B58;&#x50A8;&#x5668;&#x5BB9;&#x91CF;&#x6781;&#x5927;&#x5730;&#x53D1;&#x5C55;&#x4E86;&#xFF0C;&#x7A7A;&#x95F4;&#x518D;&#x4E5F;&#x4E0D;&#x6210;&#x4E3A;&#x95EE;&#x9898;&#x4E86;&#x3002;&#x4E8E;&#x662F;ISO&#x5C31;&#x76F4;&#x63A5;&#x89C4;&#x5B9A;&#x5FC5;&#x987B;&#x7528;<strong>&#x4E24;&#x4E2A;&#x5B57;&#x8282;&#xFF08;&#x4E5F;&#x5C31;&#x662F;16&#x4F4D;&#xFF09;</strong>&#x6765;&#x7EDF;&#x4E00;&#x8868;&#x793A;&#x6240;&#x6709;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x7528;&#x4E24;&#x4E2A;&#x5B57;&#x8282;&#x6765;&#x8868;&#x793A;&#x4E3A;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4ED6;&#x603B;&#x5171;&#x53EF;&#x4EE5;&#x7EC4;&#x5408;&#x51FA;<strong>65535</strong>&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x7B26;&#xFF0C;&#x8FD9;&#x5927;&#x6982;&#x5DF2;&#x7ECF;&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x4E16;&#x754C;&#x4E0A;&#x6240;&#x6709;&#x6587;&#x5316;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x800C;&#x5BF9;&#x4E8E;ASCII&#x91CC;&#x7684;&#x90A3;&#x4E9B;&#x201D;&#x534A;&#x89D2;&#x201D;&#x5B57;&#x7B26;&#xFF0C;UNICODE&#x5305;&#x6301;&#x5176;&#x539F;&#x7F16;&#x7801;&#x4E0D;&#x53D8;&#xFF0C;&#x53EA;&#x662F;&#x5C06;&#x5176;&#x957F;&#x5EA6;&#x7531;&#x539F;&#x6765;&#x7684;8&#x4F4D;&#x6269;&#x5C55;&#x4E3A;16&#x4F4D;&#xFF0C;&#x800C;&#x5176;&#x4ED6;&#x6587;&#x5316;&#x548C;&#x8BED;&#x8A00;&#x7684;&#x5B57;&#x7B26;&#x5219;&#x5168;&#x90E8;&#x91CD;&#x65B0;&#x7EDF;&#x4E00;&#x7F16;&#x7801;&#x3002;&#x7531;&#x4E8E;&#x201D;&#x534A;&#x89D2;&#x201D;&#x82F1;&#x6587;&#x7B26;&#x53F7;&#x53EA;&#x9700;&#x8981;&#x7528;&#x5230;&#x4F4E;8&#x4F4D;&#xFF0C;&#x6240;&#x4EE5;&#x5176;&#x9AD8;8&#x4F4D;&#x6C38;&#x8FDC;&#x662F;0&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x79CD;&#x5927;&#x6C14;&#x7684;&#x65B9;&#x6848;&#x5728;&#x4FDD;&#x5B58;&#x82F1;&#x6587;&#x6587;&#x672C;&#x65F6;&#x4F1A;&#x591A;&#x6D6A;&#x8D39;&#x4E00;&#x500D;&#x7684;&#x7A7A;&#x95F4;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicode只是一个符号集，它只规定了符号的二进制代码，却没有规定这个二进制代码应该如何存储。比如，汉字”严”的unicode是十六进制数4E25，转换成二进制数足足有15位（100111000100101），也就是说这个符号的表示至少需要2个字节。表示其他更大的符号，可能需要3个字节或者4个字节，甚至更多。这里就有两个严重的问题，第一个问题是，如何才能区别Unicode和ASCII？计算机怎么知道三个字节表示一个符号，而不是分别表示三个符号呢？第二个问题是，我们已经知道，英文字母只用一个字节表示就够了，如果Unicode统一规定，每个符号用三个或四个字节表示，那么每个英文字母前都必然有二到三个字节是0，这对于存储来说是极大的浪费，文本文件的大小会因此大出二三倍，这是无法接受的。"><span class="nav-number">1.0.6.</span> <span class="nav-text"><a href="#Unicode&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x96C6;&#xFF0C;&#x5B83;&#x53EA;&#x89C4;&#x5B9A;&#x4E86;&#x7B26;&#x53F7;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#xFF0C;&#x5374;&#x6CA1;&#x6709;&#x89C4;&#x5B9A;&#x8FD9;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x5B58;&#x50A8;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6C49;&#x5B57;&#x201D;&#x4E25;&#x201D;&#x7684;unicode&#x662F;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x6570;4E25&#xFF0C;&#x8F6C;&#x6362;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x8DB3;&#x8DB3;&#x6709;15&#x4F4D;&#xFF08;100111000100101&#xFF09;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;&#x8868;&#x793A;&#x81F3;&#x5C11;&#x9700;&#x8981;2&#x4E2A;&#x5B57;&#x8282;&#x3002;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x66F4;&#x5927;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;3&#x4E2A;&#x5B57;&#x8282;&#x6216;&#x8005;4&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x751A;&#x81F3;&#x66F4;&#x591A;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x6709;&#x4E24;&#x4E2A;&#x4E25;&#x91CD;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x533A;&#x522B;Unicode&#x548C;ASCII&#xFF1F;&#x8BA1;&#x7B97;&#x673A;&#x600E;&#x4E48;&#x77E5;&#x9053;&#x4E09;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5206;&#x522B;&#x8868;&#x793A;&#x4E09;&#x4E2A;&#x7B26;&#x53F7;&#x5462;&#xFF1F;&#x7B2C;&#x4E8C;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#xFF0C;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#x53EA;&#x7528;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x5982;&#x679C;Unicode&#x7EDF;&#x4E00;&#x89C4;&#x5B9A;&#xFF0C;&#x6BCF;&#x4E2A;&#x7B26;&#x53F7;&#x7528;&#x4E09;&#x4E2A;&#x6216;&#x56DB;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#xFF0C;&#x90A3;&#x4E48;&#x6BCF;&#x4E2A;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#x524D;&#x90FD;&#x5FC5;&#x7136;&#x6709;&#x4E8C;&#x5230;&#x4E09;&#x4E2A;&#x5B57;&#x8282;&#x662F;0&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;&#x5B58;&#x50A8;&#x6765;&#x8BF4;&#x662F;&#x6781;&#x5927;&#x7684;&#x6D6A;&#x8D39;&#xFF0C;&#x6587;&#x672C;&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;&#x4F1A;&#x56E0;&#x6B64;&#x5927;&#x51FA;&#x4E8C;&#x4E09;&#x500D;&#xFF0C;&#x8FD9;&#x662F;&#x65E0;&#x6CD5;&#x63A5;&#x53D7;&#x7684;&#x3002;" class="headerlink" title="Unicode&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x96C6;&#xFF0C;&#x5B83;&#x53EA;&#x89C4;&#x5B9A;&#x4E86;&#x7B26;&#x53F7;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#xFF0C;&#x5374;&#x6CA1;&#x6709;&#x89C4;&#x5B9A;&#x8FD9;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x5B58;&#x50A8;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6C49;&#x5B57;&#x201D;&#x4E25;&#x201D;&#x7684;unicode&#x662F;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x6570;4E25&#xFF0C;&#x8F6C;&#x6362;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x8DB3;&#x8DB3;&#x6709;15&#x4F4D;&#xFF08;100111000100101&#xFF09;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;&#x8868;&#x793A;&#x81F3;&#x5C11;&#x9700;&#x8981;2&#x4E2A;&#x5B57;&#x8282;&#x3002;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x66F4;&#x5927;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;3&#x4E2A;&#x5B57;&#x8282;&#x6216;&#x8005;4&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x751A;&#x81F3;&#x66F4;&#x591A;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x6709;&#x4E24;&#x4E2A;&#x4E25;&#x91CD;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x533A;&#x522B;Unicode&#x548C;ASCII&#xFF1F;&#x8BA1;&#x7B97;&#x673A;&#x600E;&#x4E48;&#x77E5;&#x9053;&#x4E09;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5206;&#x522B;&#x8868;&#x793A;&#x4E09;&#x4E2A;&#x7B26;&#x53F7;&#x5462;&#xFF1F;&#x7B2C;&#x4E8C;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#xFF0C;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#x53EA;&#x7528;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x5982;&#x679C;Unicode&#x7EDF;&#x4E00;&#x89C4;&#x5B9A;&#xFF0C;&#x6BCF;&#x4E2A;&#x7B26;&#x53F7;&#x7528;&#x4E09;&#x4E2A;&#x6216;&#x56DB;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#xFF0C;&#x90A3;&#x4E48;&#x6BCF;&#x4E2A;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#x524D;&#x90FD;&#x5FC5;&#x7136;&#x6709;&#x4E8C;&#x5230;&#x4E09;&#x4E2A;&#x5B57;&#x8282;&#x662F;0&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;&#x5B58;&#x50A8;&#x6765;&#x8BF4;&#x662F;&#x6781;&#x5927;&#x7684;&#x6D6A;&#x8D39;&#xFF0C;&#x6587;&#x672C;&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;&#x4F1A;&#x56E0;&#x6B64;&#x5927;&#x51FA;&#x4E8C;&#x4E09;&#x500D;&#xFF0C;&#x8FD9;&#x662F;&#x65E0;&#x6CD5;&#x63A5;&#x53D7;&#x7684;&#x3002;"></a>Unicode&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#x96C6;&#xFF0C;&#x5B83;&#x53EA;&#x89C4;&#x5B9A;&#x4E86;&#x7B26;&#x53F7;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#xFF0C;&#x5374;&#x6CA1;&#x6709;&#x89C4;&#x5B9A;&#x8FD9;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x4EE3;&#x7801;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x5B58;&#x50A8;&#x3002;&#x6BD4;&#x5982;&#xFF0C;&#x6C49;&#x5B57;&#x201D;&#x4E25;&#x201D;&#x7684;unicode&#x662F;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x6570;4E25&#xFF0C;&#x8F6C;&#x6362;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x8DB3;&#x8DB3;&#x6709;15&#x4F4D;&#xFF08;100111000100101&#xFF09;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;&#x8868;&#x793A;&#x81F3;&#x5C11;&#x9700;&#x8981;2&#x4E2A;&#x5B57;&#x8282;&#x3002;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x66F4;&#x5927;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;3&#x4E2A;&#x5B57;&#x8282;&#x6216;&#x8005;4&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x751A;&#x81F3;&#x66F4;&#x591A;&#x3002;&#x8FD9;&#x91CC;&#x5C31;&#x6709;&#x4E24;&#x4E2A;&#x4E25;&#x91CD;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x5982;&#x4F55;&#x624D;&#x80FD;&#x533A;&#x522B;Unicode&#x548C;ASCII&#xFF1F;&#x8BA1;&#x7B97;&#x673A;&#x600E;&#x4E48;&#x77E5;&#x9053;&#x4E09;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x5206;&#x522B;&#x8868;&#x793A;&#x4E09;&#x4E2A;&#x7B26;&#x53F7;&#x5462;&#xFF1F;&#x7B2C;&#x4E8C;&#x4E2A;&#x95EE;&#x9898;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x5DF2;&#x7ECF;&#x77E5;&#x9053;&#xFF0C;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#x53EA;&#x7528;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#x5C31;&#x591F;&#x4E86;&#xFF0C;&#x5982;&#x679C;Unicode&#x7EDF;&#x4E00;&#x89C4;&#x5B9A;&#xFF0C;&#x6BCF;&#x4E2A;&#x7B26;&#x53F7;&#x7528;&#x4E09;&#x4E2A;&#x6216;&#x56DB;&#x4E2A;&#x5B57;&#x8282;&#x8868;&#x793A;&#xFF0C;&#x90A3;&#x4E48;&#x6BCF;&#x4E2A;&#x82F1;&#x6587;&#x5B57;&#x6BCD;&#x524D;&#x90FD;&#x5FC5;&#x7136;&#x6709;&#x4E8C;&#x5230;&#x4E09;&#x4E2A;&#x5B57;&#x8282;&#x662F;0&#xFF0C;&#x8FD9;&#x5BF9;&#x4E8E;&#x5B58;&#x50A8;&#x6765;&#x8BF4;&#x662F;&#x6781;&#x5927;&#x7684;&#x6D6A;&#x8D39;&#xFF0C;&#x6587;&#x672C;&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;&#x4F1A;&#x56E0;&#x6B64;&#x5927;&#x51FA;&#x4E8C;&#x4E09;&#x500D;&#xFF0C;&#x8FD9;&#x662F;&#x65E0;&#x6CD5;&#x63A5;&#x53D7;&#x7684;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UTF-8字符集"><span class="nav-number">1.0.7.</span> <span class="nav-text"><a href="#UTF-8&#x5B57;&#x7B26;&#x96C6;" class="headerlink" title="UTF-8&#x5B57;&#x7B26;&#x96C6;"></a><strong>UTF-8&#x5B57;&#x7B26;&#x96C6;</strong></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于单字节的符号，字节的第一位设为0，后面7位为这个符号的unicode码。因此对于英语字母，UTF-8编码和ASCII码是相同的。"><span class="nav-number">1.0.8.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;&#x5355;&#x5B57;&#x8282;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x5B57;&#x8282;&#x7684;&#x7B2C;&#x4E00;&#x4F4D;&#x8BBE;&#x4E3A;0&#xFF0C;&#x540E;&#x9762;7&#x4F4D;&#x4E3A;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;unicode&#x7801;&#x3002;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x82F1;&#x8BED;&#x5B57;&#x6BCD;&#xFF0C;UTF-8&#x7F16;&#x7801;&#x548C;ASCII&#x7801;&#x662F;&#x76F8;&#x540C;&#x7684;&#x3002;" class="headerlink" title="&#x5BF9;&#x4E8E;&#x5355;&#x5B57;&#x8282;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x5B57;&#x8282;&#x7684;&#x7B2C;&#x4E00;&#x4F4D;&#x8BBE;&#x4E3A;0&#xFF0C;&#x540E;&#x9762;7&#x4F4D;&#x4E3A;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;unicode&#x7801;&#x3002;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x82F1;&#x8BED;&#x5B57;&#x6BCD;&#xFF0C;UTF-8&#x7F16;&#x7801;&#x548C;ASCII&#x7801;&#x662F;&#x76F8;&#x540C;&#x7684;&#x3002;"></a>&#x5BF9;&#x4E8E;&#x5355;&#x5B57;&#x8282;&#x7684;&#x7B26;&#x53F7;&#xFF0C;&#x5B57;&#x8282;&#x7684;&#x7B2C;&#x4E00;&#x4F4D;&#x8BBE;&#x4E3A;0&#xFF0C;&#x540E;&#x9762;7&#x4F4D;&#x4E3A;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;unicode&#x7801;&#x3002;&#x56E0;&#x6B64;&#x5BF9;&#x4E8E;&#x82F1;&#x8BED;&#x5B57;&#x6BCD;&#xFF0C;UTF-8&#x7F16;&#x7801;&#x548C;ASCII&#x7801;&#x662F;&#x76F8;&#x540C;&#x7684;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于n字节的符号（n-gt-1），第一个字节的前n位都设为1，第n-1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的unicode码。"><span class="nav-number">1.0.9.</span> <span class="nav-text"><a href="#&#x5BF9;&#x4E8E;n&#x5B57;&#x8282;&#x7684;&#x7B26;&#x53F7;&#xFF08;n-gt-1&#xFF09;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x7684;&#x524D;n&#x4F4D;&#x90FD;&#x8BBE;&#x4E3A;1&#xFF0C;&#x7B2C;n-1&#x4F4D;&#x8BBE;&#x4E3A;0&#xFF0C;&#x540E;&#x9762;&#x5B57;&#x8282;&#x7684;&#x524D;&#x4E24;&#x4F4D;&#x4E00;&#x5F8B;&#x8BBE;&#x4E3A;10&#x3002;&#x5269;&#x4E0B;&#x7684;&#x6CA1;&#x6709;&#x63D0;&#x53CA;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4F4D;&#xFF0C;&#x5168;&#x90E8;&#x4E3A;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;unicode&#x7801;&#x3002;" class="headerlink" title="&#x5BF9;&#x4E8E;n&#x5B57;&#x8282;&#x7684;&#x7B26;&#x53F7;&#xFF08;n&gt;1&#xFF09;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x7684;&#x524D;n&#x4F4D;&#x90FD;&#x8BBE;&#x4E3A;1&#xFF0C;&#x7B2C;n+1&#x4F4D;&#x8BBE;&#x4E3A;0&#xFF0C;&#x540E;&#x9762;&#x5B57;&#x8282;&#x7684;&#x524D;&#x4E24;&#x4F4D;&#x4E00;&#x5F8B;&#x8BBE;&#x4E3A;10&#x3002;&#x5269;&#x4E0B;&#x7684;&#x6CA1;&#x6709;&#x63D0;&#x53CA;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4F4D;&#xFF0C;&#x5168;&#x90E8;&#x4E3A;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;unicode&#x7801;&#x3002;"></a>&#x5BF9;&#x4E8E;n&#x5B57;&#x8282;&#x7684;&#x7B26;&#x53F7;&#xFF08;n&gt;1&#xFF09;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x5B57;&#x8282;&#x7684;&#x524D;n&#x4F4D;&#x90FD;&#x8BBE;&#x4E3A;1&#xFF0C;&#x7B2C;n+1&#x4F4D;&#x8BBE;&#x4E3A;0&#xFF0C;&#x540E;&#x9762;&#x5B57;&#x8282;&#x7684;&#x524D;&#x4E24;&#x4F4D;&#x4E00;&#x5F8B;&#x8BBE;&#x4E3A;10&#x3002;&#x5269;&#x4E0B;&#x7684;&#x6CA1;&#x6709;&#x63D0;&#x53CA;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x4F4D;&#xFF0C;&#x5168;&#x90E8;&#x4E3A;&#x8FD9;&#x4E2A;&#x7B26;&#x53F7;&#x7684;unicode&#x7801;&#x3002;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非字符数据的编码问题"><span class="nav-number">1.0.10.</span> <span class="nav-text"><a href="#&#x975E;&#x5B57;&#x7B26;&#x6570;&#x636E;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;" class="headerlink" title="&#x975E;&#x5B57;&#x7B26;&#x6570;&#x636E;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;"></a>&#x975E;&#x5B57;&#x7B26;&#x6570;&#x636E;&#x7684;&#x7F16;&#x7801;&#x95EE;&#x9898;</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
