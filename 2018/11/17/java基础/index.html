@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo Blog panda" />
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="panda的blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="java基础回顾 位(bit),字节(byte),千字节(kb):&amp;gt;计算机最小的传输单位是位(bit)，最小的存储单位是字节(byte);  各数据类型转换关系&amp;gt;8bit=1byte=1boolean=2short=4int=8long=4float=8double=2char  二进制的 原码，反码，补码 8位 二进制整数的 最高位为表示符号位（0:正数，1:负数），我们看到的是原码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="panda的blog">
+<meta property="og:url" content="pandalink.tech/2018/11/17/java基础/index.html">
+<meta property="og:site_name" content="panda的blog">
+<meta property="og:description" content="java基础回顾 位(bit),字节(byte),千字节(kb):&amp;gt;计算机最小的传输单位是位(bit)，最小的存储单位是字节(byte);  各数据类型转换关系&amp;gt;8bit=1byte=1boolean=2short=4int=8long=4float=8double=2char  二进制的 原码，反码，补码 8位 二进制整数的 最高位为表示符号位（0:正数，1:负数），我们看到的是原码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-17T11:01:12.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="panda的blog">
+<meta name="twitter:description" content="java基础回顾 位(bit),字节(byte),千字节(kb):&amp;gt;计算机最小的传输单位是位(bit)，最小的存储单位是字节(byte);  各数据类型转换关系&amp;gt;8bit=1byte=1boolean=2short=4int=8long=4float=8double=2char  二进制的 原码，反码，补码 8位 二进制整数的 最高位为表示符号位（0:正数，1:负数），我们看到的是原码">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="pandalink.tech/2018/11/17/java基础/"/>
+
+
+
+
+
+  <title> | panda的blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">panda的blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">程序猿</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="pandalink.tech/2018/11/17/java基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="April">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="panda的blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T19:01:43+08:00">
+                2018-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="java基础回顾"><a href="#java基础回顾" class="headerlink" title="java基础回顾"></a>java基础回顾</h1><ul>
+<li><h3 id="位-bit-字节-byte-千字节-kb"><a href="#位-bit-字节-byte-千字节-kb" class="headerlink" title="位(bit),字节(byte),千字节(kb):"></a>位(bit),字节(byte),千字节(kb):</h3><p>&gt;<br>计算机最小的传输单位是<strong>位(bit)</strong>，最小的存储单位是<strong>字节(byte)</strong>;</p>
+</li>
+<li><h3 id="各数据类型转换关系"><a href="#各数据类型转换关系" class="headerlink" title="各数据类型转换关系"></a>各数据类型转换关系</h3><p>&gt;<br><em>8bit=1byte=1boolean=2short=4int=8long=4float=8double=2char</em></p>
+</li>
+<li><h3 id="二进制的-原码，反码，补码"><a href="#二进制的-原码，反码，补码" class="headerlink" title="二进制的 原码，反码，补码"></a>二进制的 原码，反码，补码</h3><blockquote>
+<p>8位 二进制整数的 最高位为表示符号位（0:正数，1:负数），<strong>我们看到的是原码，计算机底层存储的是数据的补码</strong><br>正数的原码反码补码都一致，负数的补码是负数的反码加一，因此负数的补码=反码+1，原码=(数值位取反，符号位不变)反码。</p>
+</blockquote>
+</li>
+<li><h3 id="各进制开头符号"><a href="#各进制开头符号" class="headerlink" title="各进制开头符号"></a>各进制开头符号</h3><p>&gt;</p>
+</li>
+</ul>
+<ol>
+<li><h4 id="二进制：-0b"><a href="#二进制：-0b" class="headerlink" title="二进制： 0b"></a>二进制： 0b</h4></li>
+<li><h4 id="八进制：-0"><a href="#八进制：-0" class="headerlink" title="八进制： 0"></a>八进制： 0</h4></li>
+<li><h4 id="十进制：-无"><a href="#十进制：-无" class="headerlink" title="十进制： 无"></a>十进制： 无</h4></li>
+<li><h4 id="十六进制：0x"><a href="#十六进制：0x" class="headerlink" title="十六进制：0x"></a>十六进制：0x</h4></li>
+</ol>
+<ul>
+<li><h3 id="关于float类型二进制存储问题"><a href="#关于float类型二进制存储问题" class="headerlink" title="关于float类型二进制存储问题"></a>关于float类型二进制存储问题</h3><p>&gt;<br>float底层数据结构与整数有差异，采用的是科学计数法，实际数据表示范围要比long类型大</p>
+</li>
+<li><h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3></li>
+</ul>
+<ol>
+<li><h4 id="amp-逻辑与-1假则假"><a href="#amp-逻辑与-1假则假" class="headerlink" title="&amp;(逻辑与):1假则假"></a>&amp;(逻辑与):1假则假</h4></li>
+<li><h4 id="逻辑或-1真则真"><a href="#逻辑或-1真则真" class="headerlink" title="|(逻辑或):1真则真"></a>|(逻辑或):1真则真</h4></li>
+<li><h4 id="逻辑异或-不同则真"><a href="#逻辑异或-不同则真" class="headerlink" title="^(逻辑异或):不同则真"></a>^(逻辑异或):不同则真</h4></li>
+<li><h4 id="逻辑非-真假相反"><a href="#逻辑非-真假相反" class="headerlink" title="!(逻辑非):真假相反"></a>!(逻辑非):真假相反</h4></li>
+<li><h4 id="amp-amp-短路与-同-amp-，区别是左边是false-右边不执行"><a href="#amp-amp-短路与-同-amp-，区别是左边是false-右边不执行" class="headerlink" title="&amp;&amp;(短路与):同&amp;，区别是左边是false,右边不执行"></a>&amp;&amp;(短路与):同&amp;，区别是左边是false,右边不执行</h4></li>
+<li><h4 id="短路或-同-，区别是左边是true-右边不执行"><a href="#短路或-同-，区别是左边是true-右边不执行" class="headerlink" title="||(短路或):同|，区别是左边是true,右边不执行"></a>||(短路或):同|，区别是左边是true,右边不执行</h4></li>
+</ol>
+<ul>
+<li><h3 id="与–"><a href="#与–" class="headerlink" title="++与–"></a>++与–</h3><p>&gt;<br>单独使用，无区别，表示自增(减)1；在变量表达式中，++i表示先自增1后赋值，i++表示先赋值后自增1。</p>
+</li>
+<li><h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><p>&gt;<br>特点： 数据先转化成二进制在运算，效率高；</p>
+</li>
+</ul>
+<ol>
+<li><h4 id="amp-与-有0则0"><a href="#amp-与-有0则0" class="headerlink" title="&amp;(与):有0则0"></a>&amp;(与):<strong>有0则0</strong></h4></li>
+<li><h4 id="或-有1则1"><a href="#或-有1则1" class="headerlink" title="|(或):有1则1"></a>|(或):<strong>有1则1</strong></h4></li>
+<li><h4 id="异或-相同则0，不同则1，某个数据对另一个数据异或两次，该数不变-a-b-b-a-简单的数据加密，变量交换-左-aba-右-a-b"><a href="#异或-相同则0，不同则1，某个数据对另一个数据异或两次，该数不变-a-b-b-a-简单的数据加密，变量交换-左-aba-右-a-b" class="headerlink" title="^(异或): 相同则0，不同则1，某个数据对另一个数据异或两次，该数不变 a ^ b ^ b = a(简单的数据加密，变量交换(左:aba,右:a^b));"></a>^(异或): <strong>相同则0，不同则1</strong>，某个数据对另一个数据异或两次，该数不变 a ^ b ^ b = a(简单的数据加密，变量交换(左:aba,右:a^b));</h4></li>
+<li><h4 id="按位取反-0变1，1变0"><a href="#按位取反-0变1，1变0" class="headerlink" title="~(按位取反): 0变1，1变0"></a>~(按位取反): <strong>0变1，1变0</strong></h4></li>
+<li><h4 id="lt-lt-左移-左边最高位丢弃，空位补0：把该数2的移动次数幂-eg-3-lt-lt-2-3-2-2-12"><a href="#lt-lt-左移-左边最高位丢弃，空位补0：把该数2的移动次数幂-eg-3-lt-lt-2-3-2-2-12" class="headerlink" title="&lt;&lt;(左移): 左边最高位丢弃，空位补0：把该数2的移动次数幂  eg:3 &lt;&lt; 2 = 3  2^2 = 12"></a>&lt;&lt;(左移): <strong>左边最高位丢弃，空位补0</strong>：把该数<em>2的移动次数幂  eg:3 &lt;&lt; 2 = 3 </em> 2^2 = 12</h4></li>
+<li><h4 id="gt-gt-右移-最高位是0，左边补0；最高位是1，左边补1；-把该数-2的移动次数幂-eg-24-gt-gt-2-24-2-2-6"><a href="#gt-gt-右移-最高位是0，左边补0；最高位是1，左边补1；-把该数-2的移动次数幂-eg-24-gt-gt-2-24-2-2-6" class="headerlink" title="&gt;&gt;(右移): 最高位是0，左边补0；最高位是1，左边补1；:把该数/2的移动次数幂  eg:24 &gt;&gt; 2 = 24 / 2^2 = 6"></a>&gt;&gt;(右移): <strong>最高位是0，左边补0；最高位是1，左边补1；</strong>:把该数/2的移动次数幂  eg:24 &gt;&gt; 2 = 24 / 2^2 = 6</h4></li>
+<li><h4 id="gt-gt-gt-无符号右移-总是为正数，左边补齐0-其他同-gt-gt"><a href="#gt-gt-gt-无符号右移-总是为正数，左边补齐0-其他同-gt-gt" class="headerlink" title="&gt;&gt;&gt;(无符号右移): 总是为正数，左边补齐0,其他同&gt;&gt;"></a>&gt;&gt;&gt;(无符号右移): <strong>总是为正数，左边补齐0,其他同&gt;&gt;</strong></h4></li>
+</ol>
+<ul>
+<li><h3 id="循环中的思想"><a href="#循环中的思想" class="headerlink" title="循环中的思想"></a>循环中的思想</h3></li>
+</ul>
+<ol>
+<li><h4 id="统计思想"><a href="#统计思想" class="headerlink" title="统计思想"></a><strong>统计思想</strong></h4></li>
+<li><h4 id="求和思想"><a href="#求和思想" class="headerlink" title="求和思想"></a><strong>求和思想</strong></h4></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/09/Redis入门(1)/" rel="next" title="Redis 入门(1)">
+                <i class="fa fa-chevron-left"></i> Redis 入门(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">April</p>
+              <p class="site-description motion-element" itemprop="description">温柔只给意中人</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java基础回顾"><span class="nav-number">1.</span> <span class="nav-text"><a href="#java&#x57FA;&#x7840;&#x56DE;&#x987E;" class="headerlink" title="java&#x57FA;&#x7840;&#x56DE;&#x987E;"></a>java&#x57FA;&#x7840;&#x56DE;&#x987E;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#位-bit-字节-byte-千字节-kb"><span class="nav-number">1.0.1.</span> <span class="nav-text"><a href="#&#x4F4D;-bit-&#x5B57;&#x8282;-byte-&#x5343;&#x5B57;&#x8282;-kb" class="headerlink" title="&#x4F4D;(bit),&#x5B57;&#x8282;(byte),&#x5343;&#x5B57;&#x8282;(kb):"></a>&#x4F4D;(bit),&#x5B57;&#x8282;(byte),&#x5343;&#x5B57;&#x8282;(kb):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各数据类型转换关系"><span class="nav-number">1.0.2.</span> <span class="nav-text"><a href="#&#x5404;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x5173;&#x7CFB;" class="headerlink" title="&#x5404;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x5173;&#x7CFB;"></a>&#x5404;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x8F6C;&#x6362;&#x5173;&#x7CFB;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制的-原码，反码，补码"><span class="nav-number">1.0.3.</span> <span class="nav-text"><a href="#&#x4E8C;&#x8FDB;&#x5236;&#x7684;-&#x539F;&#x7801;&#xFF0C;&#x53CD;&#x7801;&#xFF0C;&#x8865;&#x7801;" class="headerlink" title="&#x4E8C;&#x8FDB;&#x5236;&#x7684; &#x539F;&#x7801;&#xFF0C;&#x53CD;&#x7801;&#xFF0C;&#x8865;&#x7801;"></a>&#x4E8C;&#x8FDB;&#x5236;&#x7684; &#x539F;&#x7801;&#xFF0C;&#x53CD;&#x7801;&#xFF0C;&#x8865;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各进制开头符号"><span class="nav-number">1.0.4.</span> <span class="nav-text"><a href="#&#x5404;&#x8FDB;&#x5236;&#x5F00;&#x5934;&#x7B26;&#x53F7;" class="headerlink" title="&#x5404;&#x8FDB;&#x5236;&#x5F00;&#x5934;&#x7B26;&#x53F7;"></a>&#x5404;&#x8FDB;&#x5236;&#x5F00;&#x5934;&#x7B26;&#x53F7;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#二进制：-0b"><span class="nav-number">1.0.4.1.</span> <span class="nav-text"><a href="#&#x4E8C;&#x8FDB;&#x5236;&#xFF1A;-0b" class="headerlink" title="&#x4E8C;&#x8FDB;&#x5236;&#xFF1A; 0b"></a>&#x4E8C;&#x8FDB;&#x5236;&#xFF1A; 0b</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#八进制：-0"><span class="nav-number">1.0.4.2.</span> <span class="nav-text"><a href="#&#x516B;&#x8FDB;&#x5236;&#xFF1A;-0" class="headerlink" title="&#x516B;&#x8FDB;&#x5236;&#xFF1A; 0"></a>&#x516B;&#x8FDB;&#x5236;&#xFF1A; 0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#十进制：-无"><span class="nav-number">1.0.4.3.</span> <span class="nav-text"><a href="#&#x5341;&#x8FDB;&#x5236;&#xFF1A;-&#x65E0;" class="headerlink" title="&#x5341;&#x8FDB;&#x5236;&#xFF1A; &#x65E0;"></a>&#x5341;&#x8FDB;&#x5236;&#xFF1A; &#x65E0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#十六进制：0x"><span class="nav-number">1.0.4.4.</span> <span class="nav-text"><a href="#&#x5341;&#x516D;&#x8FDB;&#x5236;&#xFF1A;0x" class="headerlink" title="&#x5341;&#x516D;&#x8FDB;&#x5236;&#xFF1A;0x"></a>&#x5341;&#x516D;&#x8FDB;&#x5236;&#xFF1A;0x</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于float类型二进制存储问题"><span class="nav-number">1.0.5.</span> <span class="nav-text"><a href="#&#x5173;&#x4E8E;float&#x7C7B;&#x578B;&#x4E8C;&#x8FDB;&#x5236;&#x5B58;&#x50A8;&#x95EE;&#x9898;" class="headerlink" title="&#x5173;&#x4E8E;float&#x7C7B;&#x578B;&#x4E8C;&#x8FDB;&#x5236;&#x5B58;&#x50A8;&#x95EE;&#x9898;"></a>&#x5173;&#x4E8E;float&#x7C7B;&#x578B;&#x4E8C;&#x8FDB;&#x5236;&#x5B58;&#x50A8;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算符"><span class="nav-number">1.0.6.</span> <span class="nav-text"><a href="#&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;" class="headerlink" title="&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;"></a>&#x903B;&#x8F91;&#x8FD0;&#x7B97;&#x7B26;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-逻辑与-1假则假"><span class="nav-number">1.0.6.1.</span> <span class="nav-text"><a href="#amp-&#x903B;&#x8F91;&#x4E0E;-1&#x5047;&#x5219;&#x5047;" class="headerlink" title="&amp;(&#x903B;&#x8F91;&#x4E0E;):1&#x5047;&#x5219;&#x5047;"></a>&amp;(&#x903B;&#x8F91;&#x4E0E;):1&#x5047;&#x5219;&#x5047;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑或-1真则真"><span class="nav-number">1.0.6.2.</span> <span class="nav-text"><a href="#&#x903B;&#x8F91;&#x6216;-1&#x771F;&#x5219;&#x771F;" class="headerlink" title="|(&#x903B;&#x8F91;&#x6216;):1&#x771F;&#x5219;&#x771F;"></a>|(&#x903B;&#x8F91;&#x6216;):1&#x771F;&#x5219;&#x771F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑异或-不同则真"><span class="nav-number">1.0.6.3.</span> <span class="nav-text"><a href="#&#x903B;&#x8F91;&#x5F02;&#x6216;-&#x4E0D;&#x540C;&#x5219;&#x771F;" class="headerlink" title="^(&#x903B;&#x8F91;&#x5F02;&#x6216;):&#x4E0D;&#x540C;&#x5219;&#x771F;"></a>^(&#x903B;&#x8F91;&#x5F02;&#x6216;):&#x4E0D;&#x540C;&#x5219;&#x771F;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#逻辑非-真假相反"><span class="nav-number">1.0.6.4.</span> <span class="nav-text"><a href="#&#x903B;&#x8F91;&#x975E;-&#x771F;&#x5047;&#x76F8;&#x53CD;" class="headerlink" title="!(&#x903B;&#x8F91;&#x975E;):&#x771F;&#x5047;&#x76F8;&#x53CD;"></a>!(&#x903B;&#x8F91;&#x975E;):&#x771F;&#x5047;&#x76F8;&#x53CD;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-amp-短路与-同-amp-，区别是左边是false-右边不执行"><span class="nav-number">1.0.6.5.</span> <span class="nav-text"><a href="#amp-amp-&#x77ED;&#x8DEF;&#x4E0E;-&#x540C;-amp-&#xFF0C;&#x533A;&#x522B;&#x662F;&#x5DE6;&#x8FB9;&#x662F;false-&#x53F3;&#x8FB9;&#x4E0D;&#x6267;&#x884C;" class="headerlink" title="&amp;&amp;(&#x77ED;&#x8DEF;&#x4E0E;):&#x540C;&amp;&#xFF0C;&#x533A;&#x522B;&#x662F;&#x5DE6;&#x8FB9;&#x662F;false,&#x53F3;&#x8FB9;&#x4E0D;&#x6267;&#x884C;"></a>&amp;&amp;(&#x77ED;&#x8DEF;&#x4E0E;):&#x540C;&amp;&#xFF0C;&#x533A;&#x522B;&#x662F;&#x5DE6;&#x8FB9;&#x662F;false,&#x53F3;&#x8FB9;&#x4E0D;&#x6267;&#x884C;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#短路或-同-，区别是左边是true-右边不执行"><span class="nav-number">1.0.6.6.</span> <span class="nav-text"><a href="#&#x77ED;&#x8DEF;&#x6216;-&#x540C;-&#xFF0C;&#x533A;&#x522B;&#x662F;&#x5DE6;&#x8FB9;&#x662F;true-&#x53F3;&#x8FB9;&#x4E0D;&#x6267;&#x884C;" class="headerlink" title="||(&#x77ED;&#x8DEF;&#x6216;):&#x540C;|&#xFF0C;&#x533A;&#x522B;&#x662F;&#x5DE6;&#x8FB9;&#x662F;true,&#x53F3;&#x8FB9;&#x4E0D;&#x6267;&#x884C;"></a>||(&#x77ED;&#x8DEF;&#x6216;):&#x540C;|&#xFF0C;&#x533A;&#x522B;&#x662F;&#x5DE6;&#x8FB9;&#x662F;true,&#x53F3;&#x8FB9;&#x4E0D;&#x6267;&#x884C;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与–"><span class="nav-number">1.0.7.</span> <span class="nav-text"><a href="#&#x4E0E;&#x2013;" class="headerlink" title="++&#x4E0E;&#x2013;"></a>++&#x4E0E;&#x2013;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位运算符"><span class="nav-number">1.0.8.</span> <span class="nav-text"><a href="#&#x4F4D;&#x8FD0;&#x7B97;&#x7B26;" class="headerlink" title="&#x4F4D;&#x8FD0;&#x7B97;&#x7B26;"></a>&#x4F4D;&#x8FD0;&#x7B97;&#x7B26;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-与-有0则0"><span class="nav-number">1.0.8.1.</span> <span class="nav-text"><a href="#amp-&#x4E0E;-&#x6709;0&#x5219;0" class="headerlink" title="&amp;(&#x4E0E;):&#x6709;0&#x5219;0"></a>&amp;(&#x4E0E;):<strong>&#x6709;0&#x5219;0</strong></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#或-有1则1"><span class="nav-number">1.0.8.2.</span> <span class="nav-text"><a href="#&#x6216;-&#x6709;1&#x5219;1" class="headerlink" title="|(&#x6216;):&#x6709;1&#x5219;1"></a>|(&#x6216;):<strong>&#x6709;1&#x5219;1</strong></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异或-相同则0，不同则1，某个数据对另一个数据异或两次，该数不变-a-b-b-a-简单的数据加密，变量交换-左-aba-右-a-b"><span class="nav-number">1.0.8.3.</span> <span class="nav-text"><a href="#&#x5F02;&#x6216;-&#x76F8;&#x540C;&#x5219;0&#xFF0C;&#x4E0D;&#x540C;&#x5219;1&#xFF0C;&#x67D0;&#x4E2A;&#x6570;&#x636E;&#x5BF9;&#x53E6;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5F02;&#x6216;&#x4E24;&#x6B21;&#xFF0C;&#x8BE5;&#x6570;&#x4E0D;&#x53D8;-a-b-b-a-&#x7B80;&#x5355;&#x7684;&#x6570;&#x636E;&#x52A0;&#x5BC6;&#xFF0C;&#x53D8;&#x91CF;&#x4EA4;&#x6362;-&#x5DE6;-aba-&#x53F3;-a-b" class="headerlink" title="^(&#x5F02;&#x6216;): &#x76F8;&#x540C;&#x5219;0&#xFF0C;&#x4E0D;&#x540C;&#x5219;1&#xFF0C;&#x67D0;&#x4E2A;&#x6570;&#x636E;&#x5BF9;&#x53E6;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5F02;&#x6216;&#x4E24;&#x6B21;&#xFF0C;&#x8BE5;&#x6570;&#x4E0D;&#x53D8; a ^ b ^ b = a(&#x7B80;&#x5355;&#x7684;&#x6570;&#x636E;&#x52A0;&#x5BC6;&#xFF0C;&#x53D8;&#x91CF;&#x4EA4;&#x6362;(&#x5DE6;:aba,&#x53F3;:a^b));"></a>^(&#x5F02;&#x6216;): <strong>&#x76F8;&#x540C;&#x5219;0&#xFF0C;&#x4E0D;&#x540C;&#x5219;1</strong>&#xFF0C;&#x67D0;&#x4E2A;&#x6570;&#x636E;&#x5BF9;&#x53E6;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x5F02;&#x6216;&#x4E24;&#x6B21;&#xFF0C;&#x8BE5;&#x6570;&#x4E0D;&#x53D8; a ^ b ^ b = a(&#x7B80;&#x5355;&#x7684;&#x6570;&#x636E;&#x52A0;&#x5BC6;&#xFF0C;&#x53D8;&#x91CF;&#x4EA4;&#x6362;(&#x5DE6;:aba,&#x53F3;:a^b));</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按位取反-0变1，1变0"><span class="nav-number">1.0.8.4.</span> <span class="nav-text"><a href="#&#x6309;&#x4F4D;&#x53D6;&#x53CD;-0&#x53D8;1&#xFF0C;1&#x53D8;0" class="headerlink" title="~(&#x6309;&#x4F4D;&#x53D6;&#x53CD;): 0&#x53D8;1&#xFF0C;1&#x53D8;0"></a>~(&#x6309;&#x4F4D;&#x53D6;&#x53CD;): <strong>0&#x53D8;1&#xFF0C;1&#x53D8;0</strong></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-lt-左移-左边最高位丢弃，空位补0：把该数2的移动次数幂-eg-3-lt-lt-2-3-2-2-12"><span class="nav-number">1.0.8.5.</span> <span class="nav-text"><a href="#lt-lt-&#x5DE6;&#x79FB;-&#x5DE6;&#x8FB9;&#x6700;&#x9AD8;&#x4F4D;&#x4E22;&#x5F03;&#xFF0C;&#x7A7A;&#x4F4D;&#x8865;0&#xFF1A;&#x628A;&#x8BE5;&#x6570;2&#x7684;&#x79FB;&#x52A8;&#x6B21;&#x6570;&#x5E42;-eg-3-lt-lt-2-3-2-2-12" class="headerlink" title="&lt;&lt;(&#x5DE6;&#x79FB;): &#x5DE6;&#x8FB9;&#x6700;&#x9AD8;&#x4F4D;&#x4E22;&#x5F03;&#xFF0C;&#x7A7A;&#x4F4D;&#x8865;0&#xFF1A;&#x628A;&#x8BE5;&#x6570;2&#x7684;&#x79FB;&#x52A8;&#x6B21;&#x6570;&#x5E42;  eg:3 &lt;&lt; 2 = 3  2^2 = 12"></a>&lt;&lt;(&#x5DE6;&#x79FB;): <strong>&#x5DE6;&#x8FB9;&#x6700;&#x9AD8;&#x4F4D;&#x4E22;&#x5F03;&#xFF0C;&#x7A7A;&#x4F4D;&#x8865;0</strong>&#xFF1A;&#x628A;&#x8BE5;&#x6570;<em>2&#x7684;&#x79FB;&#x52A8;&#x6B21;&#x6570;&#x5E42;  eg:3 &lt;&lt; 2 = 3 </em> 2^2 = 12</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-gt-右移-最高位是0，左边补0；最高位是1，左边补1；-把该数-2的移动次数幂-eg-24-gt-gt-2-24-2-2-6"><span class="nav-number">1.0.8.6.</span> <span class="nav-text"><a href="#gt-gt-&#x53F3;&#x79FB;-&#x6700;&#x9AD8;&#x4F4D;&#x662F;0&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;0&#xFF1B;&#x6700;&#x9AD8;&#x4F4D;&#x662F;1&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;1&#xFF1B;-&#x628A;&#x8BE5;&#x6570;-2&#x7684;&#x79FB;&#x52A8;&#x6B21;&#x6570;&#x5E42;-eg-24-gt-gt-2-24-2-2-6" class="headerlink" title="&gt;&gt;(&#x53F3;&#x79FB;): &#x6700;&#x9AD8;&#x4F4D;&#x662F;0&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;0&#xFF1B;&#x6700;&#x9AD8;&#x4F4D;&#x662F;1&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;1&#xFF1B;:&#x628A;&#x8BE5;&#x6570;/2&#x7684;&#x79FB;&#x52A8;&#x6B21;&#x6570;&#x5E42;  eg:24 &gt;&gt; 2 = 24 / 2^2 = 6"></a>&gt;&gt;(&#x53F3;&#x79FB;): <strong>&#x6700;&#x9AD8;&#x4F4D;&#x662F;0&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;0&#xFF1B;&#x6700;&#x9AD8;&#x4F4D;&#x662F;1&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;1&#xFF1B;</strong>:&#x628A;&#x8BE5;&#x6570;/2&#x7684;&#x79FB;&#x52A8;&#x6B21;&#x6570;&#x5E42;  eg:24 &gt;&gt; 2 = 24 / 2^2 = 6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gt-gt-gt-无符号右移-总是为正数，左边补齐0-其他同-gt-gt"><span class="nav-number">1.0.8.7.</span> <span class="nav-text"><a href="#gt-gt-gt-&#x65E0;&#x7B26;&#x53F7;&#x53F3;&#x79FB;-&#x603B;&#x662F;&#x4E3A;&#x6B63;&#x6570;&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;&#x9F50;0-&#x5176;&#x4ED6;&#x540C;-gt-gt" class="headerlink" title="&gt;&gt;&gt;(&#x65E0;&#x7B26;&#x53F7;&#x53F3;&#x79FB;): &#x603B;&#x662F;&#x4E3A;&#x6B63;&#x6570;&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;&#x9F50;0,&#x5176;&#x4ED6;&#x540C;&gt;&gt;"></a>&gt;&gt;&gt;(&#x65E0;&#x7B26;&#x53F7;&#x53F3;&#x79FB;): <strong>&#x603B;&#x662F;&#x4E3A;&#x6B63;&#x6570;&#xFF0C;&#x5DE6;&#x8FB9;&#x8865;&#x9F50;0,&#x5176;&#x4ED6;&#x540C;&gt;&gt;</strong></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环中的思想"><span class="nav-number">1.0.9.</span> <span class="nav-text"><a href="#&#x5FAA;&#x73AF;&#x4E2D;&#x7684;&#x601D;&#x60F3;" class="headerlink" title="&#x5FAA;&#x73AF;&#x4E2D;&#x7684;&#x601D;&#x60F3;"></a>&#x5FAA;&#x73AF;&#x4E2D;&#x7684;&#x601D;&#x60F3;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统计思想"><span class="nav-number">1.0.9.1.</span> <span class="nav-text"><a href="#&#x7EDF;&#x8BA1;&#x601D;&#x60F3;" class="headerlink" title="&#x7EDF;&#x8BA1;&#x601D;&#x60F3;"></a><strong>&#x7EDF;&#x8BA1;&#x601D;&#x60F3;</strong></span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求和思想"><span class="nav-number">1.0.9.2.</span> <span class="nav-text"><a href="#&#x6C42;&#x548C;&#x601D;&#x60F3;" class="headerlink" title="&#x6C42;&#x548C;&#x601D;&#x60F3;"></a><strong>&#x6C42;&#x548C;&#x601D;&#x60F3;</strong></span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
