@@ -273,7 +273,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/17/java基础/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/11/17/java基础/" itemprop="url">Java基础回顾</a></h1>
         
 
         <div class="post-meta">
@@ -285,7 +285,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T19:01:43+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-17T14:29:00+08:00">
                 2018-11-17
               </time>
             
@@ -295,6 +295,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -324,62 +346,14 @@
 
       
         
-          
-            <h1 id="java基础回顾"><a href="#java基础回顾" class="headerlink" title="java基础回顾"></a>java基础回顾</h1><ul>
-<li><h3 id="位-bit-字节-byte-千字节-kb"><a href="#位-bit-字节-byte-千字节-kb" class="headerlink" title="位(bit),字节(byte),千字节(kb):"></a>位(bit),字节(byte),千字节(kb):</h3><p>&gt;<br>计算机最小的传输单位是<strong>位(bit)</strong>，最小的存储单位是<strong>字节(byte)</strong>;</p>
-</li>
-<li><h3 id="各数据类型转换关系"><a href="#各数据类型转换关系" class="headerlink" title="各数据类型转换关系"></a>各数据类型转换关系</h3><p>&gt;<br><em>8bit=1byte=1boolean=2short=4int=8long=4float=8double=2char</em></p>
-</li>
-<li><h3 id="二进制的-原码，反码，补码"><a href="#二进制的-原码，反码，补码" class="headerlink" title="二进制的 原码，反码，补码"></a>二进制的 原码，反码，补码</h3><blockquote>
-<p>8位 二进制整数的 最高位为表示符号位（0:正数，1:负数），<strong>我们看到的是原码，计算机底层存储的是数据的补码</strong><br>正数的原码反码补码都一致，负数的补码是负数的反码加一，因此负数的补码=反码+1，原码=(数值位取反，符号位不变)反码。</p>
-</blockquote>
-</li>
-<li><h3 id="各进制开头符号"><a href="#各进制开头符号" class="headerlink" title="各进制开头符号"></a>各进制开头符号</h3><p>&gt;</p>
-</li>
-</ul>
-<ol>
-<li><h4 id="二进制：-0b"><a href="#二进制：-0b" class="headerlink" title="二进制： 0b"></a>二进制： 0b</h4></li>
-<li><h4 id="八进制：-0"><a href="#八进制：-0" class="headerlink" title="八进制： 0"></a>八进制： 0</h4></li>
-<li><h4 id="十进制：-无"><a href="#十进制：-无" class="headerlink" title="十进制： 无"></a>十进制： 无</h4></li>
-<li><h4 id="十六进制：0x"><a href="#十六进制：0x" class="headerlink" title="十六进制：0x"></a>十六进制：0x</h4></li>
-</ol>
-<ul>
-<li><h3 id="关于float类型二进制存储问题"><a href="#关于float类型二进制存储问题" class="headerlink" title="关于float类型二进制存储问题"></a>关于float类型二进制存储问题</h3><p>&gt;<br>float底层数据结构与整数有差异，采用的是科学计数法，实际数据表示范围要比long类型大</p>
-</li>
-<li><h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3></li>
-</ul>
-<ol>
-<li><h4 id="amp-逻辑与-1假则假"><a href="#amp-逻辑与-1假则假" class="headerlink" title="&amp;(逻辑与):1假则假"></a>&amp;(逻辑与):1假则假</h4></li>
-<li><h4 id="逻辑或-1真则真"><a href="#逻辑或-1真则真" class="headerlink" title="|(逻辑或):1真则真"></a>|(逻辑或):1真则真</h4></li>
-<li><h4 id="逻辑异或-不同则真"><a href="#逻辑异或-不同则真" class="headerlink" title="^(逻辑异或):不同则真"></a>^(逻辑异或):不同则真</h4></li>
-<li><h4 id="逻辑非-真假相反"><a href="#逻辑非-真假相反" class="headerlink" title="!(逻辑非):真假相反"></a>!(逻辑非):真假相反</h4></li>
-<li><h4 id="amp-amp-短路与-同-amp-，区别是左边是false-右边不执行"><a href="#amp-amp-短路与-同-amp-，区别是左边是false-右边不执行" class="headerlink" title="&amp;&amp;(短路与):同&amp;，区别是左边是false,右边不执行"></a>&amp;&amp;(短路与):同&amp;，区别是左边是false,右边不执行</h4></li>
-<li><h4 id="短路或-同-，区别是左边是true-右边不执行"><a href="#短路或-同-，区别是左边是true-右边不执行" class="headerlink" title="||(短路或):同|，区别是左边是true,右边不执行"></a>||(短路或):同|，区别是左边是true,右边不执行</h4></li>
-</ol>
-<ul>
-<li><h3 id="与–"><a href="#与–" class="headerlink" title="++与–"></a>++与–</h3><p>&gt;<br>单独使用，无区别，表示自增(减)1；在变量表达式中，++i表示先自增1后赋值，i++表示先赋值后自增1。</p>
-</li>
-<li><h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><p>&gt;<br>特点： 数据先转化成二进制在运算，效率高；</p>
-</li>
-</ul>
-<ol>
-<li><h4 id="amp-与-有0则0"><a href="#amp-与-有0则0" class="headerlink" title="&amp;(与):有0则0"></a>&amp;(与):<strong>有0则0</strong></h4></li>
-<li><h4 id="或-有1则1"><a href="#或-有1则1" class="headerlink" title="|(或):有1则1"></a>|(或):<strong>有1则1</strong></h4></li>
-<li><h4 id="异或-相同则0，不同则1，某个数据对另一个数据异或两次，该数不变-a-b-b-a-简单的数据加密，变量交换-左-aba-右-a-b"><a href="#异或-相同则0，不同则1，某个数据对另一个数据异或两次，该数不变-a-b-b-a-简单的数据加密，变量交换-左-aba-右-a-b" class="headerlink" title="^(异或): 相同则0，不同则1，某个数据对另一个数据异或两次，该数不变 a ^ b ^ b = a(简单的数据加密，变量交换(左:aba,右:a^b));"></a>^(异或): <strong>相同则0，不同则1</strong>，某个数据对另一个数据异或两次，该数不变 a ^ b ^ b = a(简单的数据加密，变量交换(左:aba,右:a^b));</h4></li>
-<li><h4 id="按位取反-0变1，1变0"><a href="#按位取反-0变1，1变0" class="headerlink" title="~(按位取反): 0变1，1变0"></a>~(按位取反): <strong>0变1，1变0</strong></h4></li>
-<li><h4 id="lt-lt-左移-左边最高位丢弃，空位补0：把该数2的移动次数幂-eg-3-lt-lt-2-3-2-2-12"><a href="#lt-lt-左移-左边最高位丢弃，空位补0：把该数2的移动次数幂-eg-3-lt-lt-2-3-2-2-12" class="headerlink" title="&lt;&lt;(左移): 左边最高位丢弃，空位补0：把该数2的移动次数幂  eg:3 &lt;&lt; 2 = 3  2^2 = 12"></a>&lt;&lt;(左移): <strong>左边最高位丢弃，空位补0</strong>：把该数<em>2的移动次数幂  eg:3 &lt;&lt; 2 = 3 </em> 2^2 = 12</h4></li>
-<li><h4 id="gt-gt-右移-最高位是0，左边补0；最高位是1，左边补1；-把该数-2的移动次数幂-eg-24-gt-gt-2-24-2-2-6"><a href="#gt-gt-右移-最高位是0，左边补0；最高位是1，左边补1；-把该数-2的移动次数幂-eg-24-gt-gt-2-24-2-2-6" class="headerlink" title="&gt;&gt;(右移): 最高位是0，左边补0；最高位是1，左边补1；:把该数/2的移动次数幂  eg:24 &gt;&gt; 2 = 24 / 2^2 = 6"></a>&gt;&gt;(右移): <strong>最高位是0，左边补0；最高位是1，左边补1；</strong>:把该数/2的移动次数幂  eg:24 &gt;&gt; 2 = 24 / 2^2 = 6</h4></li>
-<li><h4 id="gt-gt-gt-无符号右移-总是为正数，左边补齐0-其他同-gt-gt"><a href="#gt-gt-gt-无符号右移-总是为正数，左边补齐0-其他同-gt-gt" class="headerlink" title="&gt;&gt;&gt;(无符号右移): 总是为正数，左边补齐0,其他同&gt;&gt;"></a>&gt;&gt;&gt;(无符号右移): <strong>总是为正数，左边补齐0,其他同&gt;&gt;</strong></h4></li>
-</ol>
-<ul>
-<li><h3 id="循环中的思想"><a href="#循环中的思想" class="headerlink" title="循环中的思想"></a>循环中的思想</h3></li>
-</ul>
-<ol>
-<li><h4 id="统计思想"><a href="#统计思想" class="headerlink" title="统计思想"></a><strong>统计思想</strong></h4></li>
-<li><h4 id="求和思想"><a href="#求和思想" class="headerlink" title="求和思想"></a><strong>求和思想</strong></h4></li>
-</ol>
-
-          
+          Java基础
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/17/java基础/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
